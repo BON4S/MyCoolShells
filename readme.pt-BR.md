@@ -13,7 +13,7 @@ Read this in another language: [English](readme.en.md)
 
 - [My Cool Shells](#my-cool-shells)
   - [*Índice*](#user-content-índice)
-  - [*O que é tudo isso?*](#user-content-o-que-é-tudo-isso)
+  - [*O que é isso?*](#user-content-o-que-é-isso)
   - [*ARQUIVO: header.sh*](#arquivo-headersh)
   - [*ARQUIVO: news_page.sh*](#arquivo-news_pagesh)
   - [*ARQUIVO: update_arch.sh*](#arquivo-update_archsh)
@@ -21,7 +21,7 @@ Read this in another language: [English](readme.en.md)
 
 --------
 
-## *O que é tudo isso?*
+## *O que é isso?*
 
 Coloquei aqui alguns scripts shell que criei e costumo utilizar.
 
