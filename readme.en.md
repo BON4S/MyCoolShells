@@ -7,7 +7,7 @@ ENGLISH VERSION
 
 Read this in another language: [Portuguese](readme.pt-BR.md)
 
-Note: *English is not my first language, so if you see something wrong, please correct me.*
+Note: *English is not my first language, so if you see something wrong please correct me.*
 
 --------
 
