@@ -1,0 +1,140 @@
+#!/bin/bash
+# SCRIPT: header.sh
+# AUTHOR: BON4S https://github.com/BON4S
+# DESCRIPTION: Basic code to use in all shell scripts.
+# USAGE: source "header.sh"
+
+# set terminal initial background color
+printf %b "\e]11;#2b2d35\a"
+
+# text colors (foreground)
+black="\e[30m"  &&  white="\e[97m"
+red="\e[31m"    &&  lred="\e[91m"
+green="\e[32m"  &&  lgreen="\e[92m"
+yellow="\e[33m" &&  lyellow="\e[93m"
+blue="\e[34m"   &&  lblue="\e[94m"
+pink="\e[35m"   &&  lpink="\e[95m"    # magenta
+cyan="\e[36m"   &&  lcyan="\e[96m"
+gray="\e[37m"   &&  dgray="\e[90m"    # gray and dark gray
+reset_fg="\e[39m"                     # default text color
+
+# text stylization
+bold="\e[1m"
+dim="\e[2m"
+italic="\e[3m"
+underline="\e[4m"
+blink="\e[5m"
+blink2="\e[6m"
+reverse="\e[7m"
+hidden="\e[8m"
+
+# background colors
+bg_black="\e[40m"  &&  bg_white="\e[107m"
+bg_red="\e[41m"    &&  bg_lred="\e[101m"
+bg_green="\e[42m"  &&  bg_lgreen="\e[102m"
+bg_yellow="\e[43m" &&  bg_lyellow="\e[103m"
+bg_blue="\e[44m"   &&  bg_lblue="\e[104m"
+bg_pink="\e[45m"   &&  bg_lpink="\e[105m"   # magenta
+bg_cyan="\e[46m"   &&  bg_lcyan="\e[106m"
+bg_gray="\e[47m"   &&  bg_dgray="\e[100m"   # gray and dark gray
+reset_bg="\e[49m"                           # default bg color
+
+# reset bg and fg
+reset="\e[0m"
+
+# function to create titles
+# usage example: Title "TITLE NAME"
+Title() {
+  file_name="${0##*/}"
+  echo -ne $bold$gray" $1 "$dim$gray$reverse" ${file_name^^} "$reset$gray" "
+}
+
+# FUNCTION MENU
+# easily create menus from functions      <-- really cool :o)
+# usage example:
+#   menu_item_1/menu() {                  <-- "/menu" is required
+#     command
+#   }
+#   FMenu
+FMenu() {
+  place="$1"
+  if [ -z "$1" ]; then                              # check if any parameters have been passed
+    place="$0"
+    place="${place##*/}"                            # set the script itself as functions local
+  fi
+  menu=($(grep '/menu()' $place | cut -d'/' -f1))   # take the name of each function and put it in an array
+  for n in "${!menu[@]}"; do
+    num="($n+1)"
+    echo -e " "$((num))." ${menu[n]//_/ }"          # replace underline with space and print the menu
+  done
+  ErrorMessage() {
+    echo -e "$lred MENU NUMBER!$gray " && sleep 2
+  }
+  echo
+  read -p ' Nº ' opt
+  o="($opt-1)"
+  if [ -z "${menu[o]}" ]; then          # check if the typed is a nonexistent number
+    ErrorMessage
+  else
+    case $opt in
+      ''|*[!0-9]*) ErrorMessage ;;      # check if the typed is a number
+      0) ErrorMessage ;;                # check if the typed is zero
+      *) "${menu[o]}/menu" ;;            # execute the function chosen by the user
+    esac
+  fi
+}
+
+# LIST MENU
+# easily create menus from a list
+# usage example:
+#   MenuAction() {                      <-- function that runs menu actions
+#     echo "${list[choice]}";           <-- "${list[choice]}" return user choice
+#   }; LMenu "$(ls /sys/class/net)"     <-- example list which will generate the menu
+LMenu() {
+  list=($1)
+  for n in "${!list[@]}"; do
+    num="($n+1)"
+    echo -e " "$((num))." ${list[n]}"             # print the menu
+  done
+  ErrorMessage() {
+    echo -e "$lred MENU NUMBER!$gray" && sleep 2
+  }
+  echo
+  read -p ' Nº ' opt                              # read the user choice
+  choice="($opt-1)"
+  if [ -z "${list[choice]}" ]; then               # check if the typed is a nonexistent number
+    ErrorMessage
+  else
+    case $opt in
+      ''|*[!0-9]*) ErrorMessage ;;                # check if the typed is a number
+      0) ErrorMessage ;;                          # check if the typed is zero
+      *) MenuAction ;;                            # execute the user function
+    esac
+  fi
+}
+
+# colored line
+Line() {
+  echo "================================================" | lolcat  # lolcat - the best linux program after 'cowsay'
+}
+
+# looks for a terminal installed on the user's computer
+# and runs it in parallel (setid) with parameters
+# usage example: Terminal "-e script.sh"
+# can also print the terminal name with: Terminal "name"
+#                                    or: echo $terminal
+Terminal() {
+  terms=(xfce4-terminal gnome-terminal konsole xterm) # terminal list
+  for t in ${terms[*]}; do
+    if [ $(command -v $t) ]; then     # search for a terminal
+      the_term=$t                     #
+      break                           # and stops at the first one it finds (follows the list order)
+    fi
+  done
+  if [ "$*" = "name" ]; then          # if the parameter is "name"
+    echo $t                           # print the terminal name
+  else                                # if not
+    setsid $the_term $*               # execute the terminal with the parameter
+  fi
+}
+terminal=$(Terminal "name")           # put the terminal name into a variable
