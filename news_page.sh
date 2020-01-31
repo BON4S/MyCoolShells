@@ -67,7 +67,7 @@ if [ "$color" == "dark" ]; then
     scrollbar-color: #555 #323234;
   }
   h2, h3, h3 a {
-    color: #D2C9B8;
+    color: rgb(202, 187, 159);
   }
 "
 else
@@ -100,11 +100,13 @@ h3 a {
 }
 h2, h3, h3 a {
   font-family: 'SF Pro Text', 'Graphik', 'Helvetica Neue', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  font-size: 13px;
-  line-height: 15px;
-  margin: 12px 0;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  margin: 13px 0;
   text-align: left;
   text-decoration: none;
+  outline: none;
 }
 .news {
   display: inline-block;
