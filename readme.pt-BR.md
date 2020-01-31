@@ -208,7 +208,7 @@ Ao executarmos o script, o mesmo segue a seguinte sequência:
 - Atualiza o Arch User Repository (AUR);
 - E, finalmente, pergunta se tu desejas reiniciar o sistema.
 
-Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; reflector; Flatpak; Snap.
+Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; Yay; reflector; Flatpak; Snap.
 
 --------
 

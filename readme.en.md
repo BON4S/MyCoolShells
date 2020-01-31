@@ -210,7 +210,7 @@ When we run the script it does the following sequence:
 - Update the Arch User Repository (AUR);
 - And finally, ask if you want to restart the system.
 
-Dependencies: newsboat; ClamAV; unofficial ClamAV signatures script; reflector; Flatpak; Snap.
+Dependencies: newsboat; ClamAV; unofficial ClamAV signatures script; Yay; reflector; Flatpak; Snap.
 
 --------
 
