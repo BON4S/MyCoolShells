@@ -147,7 +147,7 @@ TEMA CLARO (padrão)
 
 ![news_page_image](screenshots/screenshot-news-light.png)
 
-TEMA ESCURO (--dark)
+TEMA ESCURO rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
 
 ![news_page_image](screenshots/screenshot-news-dark.png)
 

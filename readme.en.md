@@ -149,7 +149,7 @@ LIGHT THEME (default)
 
 ![news_page_image](screenshots/screenshot-news-light.png)
 
-DARK THEME (--dark)
+DARK THEME running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
 
 ![news_page_image](screenshots/screenshot-news-dark.png)
 
