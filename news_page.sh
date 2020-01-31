@@ -13,9 +13,8 @@
 # ./news_page.sh --dark
 # ./news_page.sh -d /folder/to/save
 #
-# TIP 1: Save this javascript line below as a link in your browser's bookmarks bar:
-# javascript:void(d=document); void(el=d.getElementsByTagName('link')); for(i=0;i<el.length;i++){ if( el[i].getAttribute('rel').indexOf('alternate')!=-1 && (el[i].getAttribute('type').indexOf('application/rss+xml')!=-1 || el[i].getAttribute('type').indexOf('text/xml')!=-1)){ void(prompt('RSS:', el[i].getAttribute('href')))}}
-# Clicking on this javascript will open a dialog box with the rss url of the site.
+# TIP 1: If you use Firefox, install my extension to get feed links easily:
+# https://github.com/BON4S/KillAndMore
 #
 # TIP 2: You can schedule the script to run every 3 hours by editing cron with the command:
 # export VISUAL=nano; crontab -e

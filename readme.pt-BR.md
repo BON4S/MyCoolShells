@@ -167,11 +167,7 @@ Tu podes rodar o script sem parâmetros, ou podes especificar o tema escuro e/ou
 
 *news_page.html* será gerado.
 
-DICA 1: Salve a linha javascript abaixo como um link na barra de favoritos do seu navegador. Ao clicar neste link será aberta uma caixa de diálogo com a URL do feed rss do site que você estiver visitando. Trata-se de uma maneira rápida de obter os feeds.
-
-```javascript
-javascript:void(d=document); void(el=d.getElementsByTagName('link')); for(i=0;i<el.length;i++){ if( el[i].getAttribute('rel').indexOf('alternate')!=-1 && (el[i].getAttribute('type').indexOf('application/rss+xml')!=-1 || el[i].getAttribute('type').indexOf('text/xml')!=-1)){ void(prompt('RSS:', el[i].getAttribute('href')))}}
-```
+DICA 1: Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmente: [Kill and More](https://github.com/BON4S/KillAndMore)
 
 DICA 2: Para manter a página atualizada, você pode agendar o script para ser executado a cada 3 horas, basta editar o 'cron' com o comando:
 
