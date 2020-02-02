@@ -141,15 +141,15 @@ Neste exemplo as tuas interfaces de rede são listadas como menu:
 
 ## *ARQUIVO: news_page.sh*
 
-Esse script extrai notícias de vários sites e cria um documento html leve e prático.
+Esse script extrai notícias de vários sites e cria um documento html leve e prático. Também consegue extrair posts do Twitter.
 
 TEMA CLARO (padrão)
 
 ![news_page_image](screenshots/screenshot-news-light.png)
 
-TEMA ESCURO rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
+TEMA ESCURO (o mais legal) rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
 
-![news_page_image](screenshots/screenshot-news-dark.png)
+![news_page_image](screenshots/screenshot-news-dark.gif)
 
 USO
 
@@ -166,6 +166,8 @@ Tu podes rodar o script sem parâmetros, ou podes especificar o tema escuro e/ou
 ```
 
 *news_page.html* será gerado.
+
+Dependências: Para usar a função de extrair posts do Twitter é necessário instalar o [pup](https://github.com/ericchiang/pup) (HTML parser).
 
 DICA 1: Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmente: [Kill and More](https://github.com/BON4S/KillAndMore)
 

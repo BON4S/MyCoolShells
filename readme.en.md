@@ -143,15 +143,15 @@ In this example, your network interfaces will be listed as a menu:
 
 ## *FILE: news_page.sh*
 
-This script extracts news from various websites and creates a lightweight html document.
+This script extracts news from various websites and creates a lightweight html document. You also extract posts from twitter.
 
 LIGHT THEME (default)
 
 ![news_page_image](screenshots/screenshot-news-light.png)
 
-DARK THEME running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
+DARK THEME (the coolest) running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
 
-![news_page_image](screenshots/screenshot-news-dark.png)
+![news_page_image](screenshots/screenshot-news-dark.gif)
 
 Usage:
 
@@ -168,6 +168,8 @@ You can run the script without parameters, or you can specify the dark theme and
 ```
 
 *news_page.html* will be generated.
+
+Dependencies: To use the Twitter function it is necessary to install the [pup](https://github.com/ericchiang/pup) (a HTML parser).
 
 TIP 1: If you use Firefox, install my extension to get feed links easily: [Kill and More](https://github.com/BON4S/KillAndMore)
 
