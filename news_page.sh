@@ -188,7 +188,7 @@ html, body {
   height: 100%;
   overflow: auto;
 }
-h2, ,js-pinned-text, .js-retweet-text {
+h2, .js-pinned-text, .js-retweet-text {
   font-weight: bold;
 }
 h3 a {
@@ -348,10 +348,10 @@ HtmlGenerator() {
       </script>
   "
 # ----
-  Twitter "Jair Bolsonaro" "jairbolsonaro"
-  Twitter "Orange President" "realDonaldTrump"
-  Twitter "Emmanuel Macron" "EmmanuelMacron"
-  Twitter "Alberto Fernández" "alferdez"
+  Twitter "President of Brazil - Jair Bolsonaro" "jairbolsonaro"
+  Twitter "President of United States - Donald Trump" "realDonaldTrump"
+  Twitter "President of France - Emmanuel Macron" "EmmanuelMacron"
+  Twitter "President of Argentina - Alberto Fernández" "alferdez"
 # ----
   echo "</div>"
 # ----
