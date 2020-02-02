@@ -239,11 +239,11 @@ hr {
 }
 .tweets {
   display: inline-block;
-  margin: 6px 40px;
+  margin: 6px 24px;
   vertical-align: top;
 }
 .tweets, .tweets-box {
-  width: 380px;
+  width: 362px;
 }
 .tweets-box {
   height: 450px;
@@ -251,7 +251,7 @@ hr {
   overflow: auto;
 }
 .tweets-box img, div.PlayableMedia-player, div.PlayableMedia-container  {
-  max-width: 366px;
+  max-width: 354px;
   height: auto !important;
   background-size: contain;
 }
@@ -352,10 +352,9 @@ HtmlGenerator() {
 # ----
   Twitter "President of Brazil - Jair Bolsonaro" "jairbolsonaro"
   Twitter "President of United States - Donald Trump" "realDonaldTrump"
-  Twitter "President of France - Emmanuel Macron" "EmmanuelMacron"
   Twitter "President of Argentina - Alberto Fernández" "alferdez"
 # ----
-  echo "</div>"
+  echo "</div>" # id: the-twitter
 # ----
 # -- feed links that didn't work --
 #  ReadFeed "The Hindu" "https://www.thehindu.com/feeder/default.rss"
