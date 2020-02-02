@@ -70,7 +70,7 @@ Twitter(){
   echo -ne"</div></div>"
 }
 
-if [ "$color" == "dark" ]; then
+if [ "$color" == "dark" ]; then # dark theme css
   cssColor="
   ::-webkit-scrollbar {
     background-color: #2b2926;
@@ -123,7 +123,7 @@ if [ "$color" == "dark" ]; then
     color: chartreuse;
   }
 "
-else
+else # light theme css
   cssColor="
   ::-webkit-scrollbar {
     background-color: #eaeaea;
@@ -173,6 +173,7 @@ else
   }
 "
 fi
+# css that is applied to all themes (light and dark)
 cssDefault="
 html, body {
   margin: 0;
@@ -251,6 +252,7 @@ hr {
 }
 .tweets-box img, div.PlayableMedia-player, div.PlayableMedia-container  {
   max-width: 366px;
+  height: auto !important;
   background-size: contain;
 }
 .tweets h2, .tweets h2 a {
