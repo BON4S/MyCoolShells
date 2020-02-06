@@ -1,0 +1,141 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+#content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+h2, .js-pinned-text, .js-retweet-text, .PlayableMedia-title {
+  font-weight: bold;
+}
+
+h3 a {
+  font-weight: normal;
+}
+
+p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box p a, a.pretty-link, .js-pinned-text, .js-retweet-text,
+.tweet-text, .QuoteTweet-text, .fullname, .username, .time, .stream-item-header, .stream-item-header a,
+.account-group, .u-hiddenVisually, .tweet-timestamp, .PlayableMedia-title, .PlayableMedia-description,
+.PlayableMedia-attribution {
+  font-family: 'SF Pro Text', 'Graphik', 'Helvetica Neue', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  outline: none;
+}
+
+p, h2, h2 a, h3, h3 a {
+  margin: 13px 0;
+  text-align: left;
+}
+
+.tweets-box a {
+  cursor: default;
+}
+
+.u-hiddenVisually {
+  font-size: 11px;
+}
+
+.QuoteTweet-text {
+  margin: 4px 32px;
+  padding: 2px 4px 5px 2px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.flex a, .flex p {
+  margin: 0 20px;
+}
+
+.right {
+  text-align: right;
+}
+
+hr {
+  border: 1px dashed;
+  margin-bottom: 0px;
+}
+
+.news {
+  width: 270px;
+  display: inline-block;
+  margin: 16px;
+  vertical-align: top;
+}
+
+.tweets {
+  display: inline-block;
+  margin: 6px 24px;
+  vertical-align: top;
+}
+
+.tweets, .tweets-box {
+  width: 362px;
+}
+
+.tweets-box {
+  height: 450px;
+  padding: 8px;
+  overflow: auto;
+}
+
+.tweets-box img, div.PlayableMedia-player, div.PlayableMedia-container  {
+  max-width: 354px;
+  height: auto !important;
+  background-size: contain;
+}
+
+.tweets h2, .tweets h2 a {
+  margin-bottom: 0;
+}
+
+div.tweet {
+  margin-bottom: 16px;
+  padding-bottom: 34px;
+}
+
+.twitter-atreply, .twitter-atreply s, .u-textTruncate, .u-textTruncate s,
+.twitter-hashtag, .twitter-hashtag s {
+  word-spacing: -3px;
+  text-decoration: none;
+}
+
+img.Emoji, img.twitter-hashflag {
+  max-width: 12px;
+}
+
+.AdaptiveMedia-singlePhoto, .AdaptiveMedia-container {
+  padding: 0 !important;
+  padding-top: 0 !important;
+}
+
+.avatar, .js-action-profile-avatar, .ReplyingToContextBelowAuthor, .ProfileTweet-action,
+.ProfileTweet-action--more, .js-more-ProfileTweet-actions, .UserBadges, ._timestamp,
+.twitter-timeline-link, .u-hiddenVisually, .stream-item-footer, .self-thread-context,
+.self-thread-tweet-cta, .media-tags-container, .AdaptiveMedia-badgeText {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.brightness {
+  opacity: 0.6;
+}
+

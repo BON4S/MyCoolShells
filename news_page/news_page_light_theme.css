@@ -1,0 +1,65 @@
+::-webkit-scrollbar {
+  background-color: #eaeaea;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d5d5d5;
+}
+
+body {
+  background-color: #fff;
+}
+
+div {
+  scrollbar-color: #d5d5d5 #eaeaea;
+}
+
+p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box a, .PlayableMedia-title, 
+.PlayableMedia-description {
+  color: #737373;
+}
+
+hr {
+  color: #ccc;
+}
+
+.QuoteTweet-text {
+  color: #5B5B5B;
+  border: #e3e3e3 1px solid;
+}
+
+.QuoteTweet-fullname, .PlayableMedia-attribution {
+  color: #c9c9c9;
+}
+
+a.twitter-timeline-link {
+  color: #afafaf;
+}
+
+a.pretty-link {
+  color: #595959;
+}
+
+.js-pinned-text {
+  color: #b3b3b3;
+}
+
+.js-retweet-text{
+  color: #976f6f;
+}
+
+div.tweet {
+  border-bottom: #c8c8c8 1px dashed;
+}
+
+.u-hiddenVisually {
+  color: #97a6b7;
+}
+
+.fullname {
+  color: #444;
+}
+
+.username {
+  color: #bababa;
+}
