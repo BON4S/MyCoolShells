@@ -1,27 +1,10 @@
-# My Cool Shells
+#
 
-| Shells created to make life easier. | ![BON4S!_IMAGE](screenshots/screenshot-BON4S.gif) |
-|-|-|
+README EM PORTUGUÊS
 
-VERSÃO EM PORTUGUÊS
+You can also read this in another language: [English](readme.md)
 
-Read this in another language: [English](readme.en.md)
-
---------
-
-## *Índice*
-
-- [My Cool Shells](#my-cool-shells)
-  - [*Índice*](#user-content-índice)
-  - [*O que é isso?*](#user-content-o-que-é-isso)
-  - [*ARQUIVO: header.sh*](#arquivo-headersh)
-  - [*ARQUIVO: news_page.sh*](#arquivo-news_pagesh)
-  - [*ARQUIVO: update_arch.sh*](#arquivo-update_archsh)
-  - [*ARQUIVO: google_calendar.sh*](#arquivo-google_calendarsh)
-
---------
-
-## *O que é isso?*
+## My Cool Shells
 
 Coloquei aqui alguns scripts shell que criei e costumo utilizar.
 
@@ -32,13 +15,86 @@ Basta clonar o repositório, dar permissão e executar:
 ```bash
 git clone https://github.com/BON4S/MyCoolShells
 cd MyCoolShells
-chmod +x *.sh
+chmod +x *.sh && chmod +x /news_page/*.sh
 ./the_script.sh
 ```
 
-Abaixo, segue a explicação de alguns scripts.
+**CLIQUE ABAIXO PARA EXPANDIR:**
 
---------
+<details>
+
+<summary>news_page.sh</summary>
+
+## *ARQUIVO: news_page.sh*
+
+Esse script extrai notícias de vários sites e cria um documento html leve e prático.
+
+O script também mostra posts do Twitter, cotação de moedas e dados metereológicos.
+
+TEMA CLARO (padrão)
+
+![news_page_image](screenshots/screenshot-news-light.png)
+
+TEMA ESCURO (o mais legal) rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
+
+![news_page_image](screenshots/screenshot-news-dark.gif)
+
+USO:
+
+Insira seus links (rss) de notícias favoritos no script e execute-o. Tu podes rodar o script sem parâmetros, ou especificar o tema escuro e o diretório para salvar a página, assim como nos três exemplos abaixo:
+
+```bash
+# Exemplo sem parâmetros:
+./news_page.sh
+
+# Exemplo para o tema dark:
+./news_page.sh --dark
+
+# Exemplo indicando o local para salvar:
+./news_page.sh -d /pasta/para/salvar
+```
+
+*news_page.html* será gerado.
+
+DEPENDÊNCIAS:
+
+- Para usar a função de extrair posts do Twitter é necessário instalar o [pup](https://github.com/ericchiang/pup) (HTML parser).
+
+```bash
+# Usuário do Arch (yay):
+yay -S weather
+```
+
+- Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
+
+```bash
+# Usuário do Arch (yay):
+yay -S pup
+```
+
+DICA 1:
+
+Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmente: [Kill and More](https://github.com/BON4S/KillAndMore)
+
+DICA 2:
+
+Para manter a página atualizada, você pode agendar o script para ser executado a cada 3 horas, basta editar o 'cron' com o comando:
+
+```bash
+export VISUAL=nano; crontab -e
+```
+
+e dentro da edição insira uma nova linha como essa (com o caminho completo ao script):
+
+```txt
+0 */3 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh --dark
+```
+
+</details>
+
+<details>
+
+<summary>header.sh</summary>
 
 ## *ARQUIVO: header.sh*
 
@@ -137,53 +193,11 @@ Neste exemplo as tuas interfaces de rede são listadas como menu:
  Nº
 ```
 
---------
+</details>
 
-## *ARQUIVO: news_page.sh*
+<details>
 
-Esse script extrai notícias de vários sites e cria um documento html leve e prático. Também consegue extrair posts do Twitter.
-
-TEMA CLARO (padrão)
-
-![news_page_image](screenshots/screenshot-news-light.png)
-
-TEMA ESCURO (o mais legal) rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
-
-![news_page_image](screenshots/screenshot-news-dark.gif)
-
-USO
-
-Insira seus links (rss) de notícias favoritos no script e execute-o.
-
-Tu podes rodar o script sem parâmetros, ou podes especificar o tema escuro e/ou o diretório para salvar a página, assim como nos três exemplos abaixo:
-
-```bash
-./news_page.sh
-
-./news_page.sh --dark
-
-./news_page.sh -d /pasta/para/salvar
-```
-
-*news_page.html* será gerado.
-
-Dependências: Para usar a função de extrair posts do Twitter é necessário instalar o [pup](https://github.com/ericchiang/pup) (HTML parser).
-
-DICA 1: Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmente: [Kill and More](https://github.com/BON4S/KillAndMore)
-
-DICA 2: Para manter a página atualizada, você pode agendar o script para ser executado a cada 3 horas, basta editar o 'cron' com o comando:
-
-```bash
-export VISUAL=nano; crontab -e
-```
-
-e dentro da edição insira uma nova linha como essa (com o caminho completo ao script):
-
-```txt
-0 */3 * * * /home/user/pasta_do_script/news_page.sh --dark
-```
-
---------
+<summary>update_arch.sh</summary>
 
 ## *ARQUIVO: update_arch.sh*
 
@@ -212,7 +226,11 @@ Ao executarmos o script, o mesmo segue a seguinte sequência:
 
 Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; Yay; reflector; Flatpak; Snap.
 
---------
+</details>
+
+<details>
+
+<summary>google_calendar.sh</summary>
 
 ## *ARQUIVO: google_calendar.sh*
 
@@ -229,3 +247,5 @@ Uso:
 ```
 
 Para usar esse script, é necessário instalar e configurar o gcalcli (ativar a API do Google).
+
+</details>
