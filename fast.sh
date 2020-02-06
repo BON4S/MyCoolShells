@@ -39,7 +39,7 @@ Update_Arch_Linux/menu() {
   fi; exit
 }
 
-# MENU ITEM - create and update my rss feed page (see news_page.sh)
+# MENU ITEM - create and update my rss feed page (see news_page.sh) 
 Update_the_News_Page/menu() {
   ./news_page/news_page.sh --dark -d /mnt/home2/downloads_sda2
   exit
