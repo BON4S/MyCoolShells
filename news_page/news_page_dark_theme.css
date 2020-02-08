@@ -60,3 +60,7 @@ div.tweet {
 .username {
   color: #4a4a4a;
 }
+
+#top-line, #twitter-line, hr {
+  opacity: 0.4;
+}
