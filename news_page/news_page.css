@@ -55,15 +55,21 @@ p, h2, h2 a, h3, h3 a {
 .flex {
   display: flex;
   justify-content: space-between;
-  margin: 12px 0;
+  margin: 6px 12px;
 }
 
 .flex a, .flex p {
-  margin: 0 20px;
+  margin: 0 6px;
 }
 
 .right {
   text-align: right;
+}
+
+.control a {
+  font-size: 22px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 hr {
@@ -74,7 +80,7 @@ hr {
 .news {
   width: 270px;
   display: inline-block;
-  margin: 16px;
+  margin: 10px 16px 10px 16px;
   vertical-align: top;
 }
 
@@ -127,15 +133,10 @@ img.Emoji, img.twitter-hashflag {
 .avatar, .js-action-profile-avatar, .ReplyingToContextBelowAuthor, .ProfileTweet-action,
 .ProfileTweet-action--more, .js-more-ProfileTweet-actions, .UserBadges, ._timestamp,
 .twitter-timeline-link, .u-hiddenVisually, .stream-item-footer, .self-thread-context,
-.self-thread-tweet-cta, .media-tags-container, .AdaptiveMedia-badgeText {
-  display: none;
-}
-
-.hide {
+.self-thread-tweet-cta, .media-tags-container, .AdaptiveMedia-badgeText, .hide {
   display: none;
 }
 
 .brightness {
   opacity: 0.6;
 }
-
