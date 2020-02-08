@@ -55,25 +55,25 @@ while [ -n "$1" ]; do
 done
 
 # this takes news from a website
-ReadFeed(){
+ReadFeed() {
   urlNews=$2
   pageContent=$(wget --timeout=5 --tries=2 -O- ${urlNews}) 
   IFS=$'\n'; title=($(xmllint --xpath '//item/title/text()' - <<<"$pageContent"))     # extract the title
   IFS=$'\n'; link=($(xmllint --xpath '//item/link/text()' - <<<"$pageContent"))       # extract the link
-  echo -ne "<div class='news'><h2>$1</h2>"
+  echo -ne "<div class='news'><h2 class='news-site'>$1</h2>"
   if [ -z "$3" ]; then
     newsLimit=6             # limits the amount of news displayed by each site
   else
     newsLimit=$3            # you can specify the amount of news for an individual link (third parameter)
   fi
   for ((i=0; i<$newsLimit; ++i)) do
-    echo -ne "<h3><a href='${link[i]}'>${title[i]}</a></h3>"
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
   done
   echo "</div>"
 }
 
 # get tweets
-Twitter(){
+Twitter() {
   urlTwitter="https://twitter.com/$2"
   pageContent=$(wget --timeout=5 --tries=2 -O- ${urlTwitter})
   echo -ne "<div class='tweets'><h2><a href='$urlTwitter'>$1</a></h2>"
@@ -83,7 +83,7 @@ Twitter(){
 }
 
 # this takes the value of one currency and converts it to another currency
-CurrencyConverter (){
+CurrencyConverter() {
   targetCurrencyNumber=$(wget -qO- "https://api.exchangeratesapi.io/latest?base=$1" | grep -Eo "$2\":[0-9.]*" | grep -Eo "[0-9.]*") > /dev/null
   echo "1 $1 = ${targetCurrencyNumber:0:4} $2"
 }
@@ -123,17 +123,20 @@ HtmlGenerator() {
 
   # top line
   echo "
+  <span id='top'></span>
   <div id='top-line' class='flex'>  <!-- #top-line start -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~  Currency  ~~~~~~~~~ -->
     <div>
-      <p><b>Currency</b> &nbsp;"
-  CurrencyConverter BRL USD
+      <p><b>Currency</b> &nbsp;
+  "
+  CurrencyConverter USD BRL
   echo "
       </p>
     </div>
   <!-- ~~~~~~~~~~~~~~~~~~~~~~  Weather  ~~~~~~~~~~ -->
     <div>
-      <a href='http://tempo.clic.com.br/rs/porto-alegre'><b>Porto Alegre</b> &nbsp;&nbsp;"
+      <a href='http://tempo.clic.com.br/rs/porto-alegre'><b>Porto Alegre</b> &nbsp;&nbsp;
+  "
   weather-report -q --headers=TEMPERATURE "Porto Alegre Aero-Porto, Brazil"
   echo "&nbsp;&nbsp;"     # blank space
   weather-report -q --headers=RELATIVE_HUMIDITY "Porto Alegre Aero-Porto, Brazil"
@@ -148,12 +151,37 @@ HtmlGenerator() {
   echo "
       </p>
     </div>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Scroll Down  ~~~~~~ -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Screen Control  ~~~ -->
     <div class='right'>
-      <a href='#line1'>Scroll Down</a>
+      <span class='control'>
+        <a href='#top' onclick='newsBrightness()'>☀</a>
+        <a href='#top' onclick='FullScreen()'>⤢</a>
+        <a href='#line1'>↓</a>
+      </span>
     </div>
   <!-- ~~~~~~~~~~~~~~~~~~~~~~  Top Line End  ~~~~~ -->
   </div>  <!-- #top-line end -->
+  "
+
+  # full screen and news brightness
+  echo "
+  <script>
+    function FullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen(); 
+        }
+      }
+    }
+    function newsBrightness() {
+      var element = document.querySelectorAll('.news-titles');
+      [].forEach.call(element, function(e) {
+        e.classList.toggle('brightness');
+      });
+    }  
+  </script>
   "
 
   # news section
@@ -192,13 +220,20 @@ HtmlGenerator() {
   # twitter top line
   echo "
     <hr id='line1'>
-    <div class='flex'>
-      <div class='left'></div>
-      <div class='right'>
-        <a href='#line1' onclick='twitterBrightness()'>Twitter Brightness</a>
-        <a href='#line1' onclick='twitterShowHide()'>Twitter Show/Hide</a>
-        <a href='#top-line'>Up</a>
+    <div id='twitter-line' class='flex'>
+
+      <div class='left'>
       </div>
+
+      <div class='right'>
+        <span class='control'>
+          <a href='#line1' onclick='twitterBrightness()'>☀</a>
+          <a href='#line1' alt='Full Screen' onclick='FullScreen()'>⤢</a>
+          <a href='#top'>↑</a>
+        </span>
+        <a href='#line1' onclick='twitterShowHide()'>Twitter Show/Hide</a>
+      </div>
+
       <script>
         function twitterShowHide() {
           var element = document.querySelector('#the-twitter');
@@ -211,8 +246,9 @@ HtmlGenerator() {
           });
         }
       </script>
+
     </div>
-    "
+  "
 
   # get tweets
   echo "<div id='the-twitter' class='hide'>"
@@ -235,7 +271,8 @@ HtmlGenerator() {
 };  # end of news page generator code
 
 # news page generator launcher
-echo -e "\n GENERATING THE NEWS PAGE..\n" && HtmlGenerator > $file
+echo -e "\n GENERATING THE NEWS PAGE..\n"
+HtmlGenerator > $file
 
 # la grande finale (French)
 echo -e "\n DONE!\n"
