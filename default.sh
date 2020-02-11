@@ -73,13 +73,13 @@ fmenu() {
   echo
   read -p ' Nº ' opt
   o="($opt-1)"
-  if [ -z "${menu[o]}" ]; then          # check if the typed is a nonexistent number
+  if [ -z "${menu[o]}" ]; then      # check if the typed is a nonexistent number
     error
   else
     case $opt in
-      ''|*[!0-9]*) error ;;      # check if the typed is a number
-      0) error ;;                # check if the typed is zero
-      *) "${menu[o]}/menu" ;;            # execute the function chosen by the user
+      ''|*[!0-9]*) error ;;         # check if the typed is a number
+      0) error ;;                   # check if the typed is zero
+      *) "${menu[o]}/menu" ;;       # execute the function chosen by the user
     esac
   fi
 }
@@ -94,28 +94,29 @@ lmenu() {
   list=($1)
   for n in "${!list[@]}"; do
     num="($n+1)"
-    echo -e " "$((num))." ${list[n]}"             # print the menu
+    echo -e " "$((num))." ${list[n]}"   # print the menu
   done
   error() {
-    echo -e "$lred MENU NUMBER!$gray" && sleep 2
+    echo -e "$lred MENU NUMBER!$gray"
+    sleep 2
   }
   echo
-  read -p ' Nº ' opt                              # read the user choice
+  read -p ' Nº ' opt                    # read the user choice
   choice="($opt-1)"
-  if [ -z "${list[choice]}" ]; then               # check if the typed is a nonexistent number
+  if [ -z "${list[choice]}" ]; then     # check if the typed is a nonexistent number
     error
   else
     case $opt in
-      ''|*[!0-9]*) error ;;                # check if the typed is a number
-      0) error ;;                          # check if the typed is zero
-      *) action ;;                            # execute the user function
+      ''|*[!0-9]*) error ;;             # check if the typed is a number
+      0) error ;;                       # check if the typed is zero
+      *) action ;;                      # execute the user function
     esac
   fi
 }
 
 # colored line
-line() {
-  echo "================================================" | lolcat  # lolcat - the best linux program after 'cowsay'
+line() {          # lolcat -> the best linux program after 'cowsay'
+  echo "================================================" | lolcat
 }
 
 # looks for a terminal installed on the user's computer
