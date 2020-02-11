@@ -94,25 +94,25 @@ e dentro da edição insira uma nova linha como essa (com o caminho completo ao 
 
 <details>
 
-<summary>header.sh</summary>
+<summary>default.sh</summary>
 
-## *ARQUIVO: header.sh*
+## *ARQUIVO: default.sh*
 
 Esse é um código padrão que criei para colocar em todos os scripts. Ele serve para estilizar de uma maneira fácil os textos dentro dos códigos, deixando-os limpos e legíveis. Também é útil para criar menus rapidamente e de diferentes maneiras.
 
-Uso: inclua o código do header.sh no seu script:
+Uso: inclua o código do default.sh no seu script:
 
 ```bash
-source "header.sh"
+source "default.sh"
 ```
 
 ***ESTILIZAÇÃO DE TEXO***
 
-Com header.sh podemos estilizar o texto com variáveis e funções.
+Com default.sh podemos estilizar o texto com variáveis e funções.
 
 EXEMPLOS
 
-Sem o header.sh:
+Sem o default.sh:
 
 ```bash
 echo -ne "\e[1m\e[97m SCRIPT NAME \e[2m\e[37m\e[7m teste.sh \e[49m"
@@ -122,31 +122,31 @@ echo -e "\e[34m I'm blue,\e[33m I'm yellow,\e[32m I'm green."
 echo -e "\e[107m\e[1m\e[31m Bold Red Text on White Background "
 ```
 
-Com o header.sh:
+Com o default.sh:
 
 ```bash
-Title "SCRIPT NAME"
+title "SCRIPT NAME"
 
 echo -e "$blue I'm blue,$yellow I'm yellow,$green I'm green."
 
 echo -e "$bg_white$bold$red Bold Red Text on White Background "
 ```
 
-![header_text_image](screenshots/screenshot-text.png)
+![default.sh_text_image](screenshots/screenshot-text.png)
 
 Ambos os exemplos imprimem exatamente o mesmo resultado.
 
-NOTA: *Consulte outras opções de cores e estilos dentro do header.sh.*
+NOTA: *Consulte outras opções de cores e estilos dentro do default.sh.*
 
 ***CRIAÇÃO DE MENUS***
 
-Com header.sh também podemos criar menus a partir de funções com o comando ***FMenu***, ou a partir de listas com o comando ***LMenu***. Veja os exemplos abaixo:
+Com default.sh também podemos criar menus a partir de funções com o comando ***fmenu***, ou a partir de listas com o comando ***lmenu***. Veja os exemplos abaixo:
 
-![header_menu_image](screenshots/screenshot-menu.gif)
+![default.sh_menu_image](screenshots/screenshot-menu.gif)
 
 MENU DE FUNÇÕES
 
-FMenu - Crie menus a partir de funções. Para fazer isso, basta criar funções que terminem com "/menu":
+fmenu - Crie menus a partir de funções. Para fazer isso, basta criar funções que terminem com "/menu":
 
 ```bash
 Um_item_do_menu/menu() {
@@ -155,7 +155,7 @@ Um_item_do_menu/menu() {
 Mais_um_item/menu() {
   #comandos
 }
-FMenu
+fmenu
 ```
 
 Resultado:
@@ -169,13 +169,13 @@ Resultado:
 
 MENU DE LISTAS
 
-LMenu - Crie menus a partir de listas, arrays, arquivos... Para fazer isso basta definir o parâmetro da lista e a ação:
+lmenu - Crie menus a partir de listas, arrays, arquivos... Para fazer isso basta definir o parâmetro da lista e a ação:
 
 ```bash
-MenuAction() {                              # função para as ações
+action() {                                  # função para as ações
   echo "Sua escolha foi: ${list[choice]}"   # a ação
 }
-LMenu "$(ls /sys/class/net)"                # a lista
+lmenu "$(ls /sys/class/net)"                # a lista
 ```
 
 Resultado:

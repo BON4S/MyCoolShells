@@ -3,10 +3,12 @@
 # AUTHOR: BON4S https://github.com/BON4S
 # DESCRIPTION: Script to open shortcuts dialog when click in some taskbar icon.
 # USAGE: xfce4-terminal --minimize -e "shortcuts.sh editors"
-# DEPENDENCIES: yay
+# DEPENDENCIES: yad
 #
-# THAT WAS DONE QUICKLY! MAYBE IT'S UGLY!
-# TODO: STUDY A BETTER WAY TO USE YAY - without the quick display of the terminal
+# THAT WAS DONE QUICKLY! IT'S UGLY! :))
+#
+# TODO: FIND AN ALTERNATIVE TO YAD - remove the quick display of the terminal on the screen.
+# TODO: Rewrite this code.
 shortcut() {
   choices=$(yad --height=300 --width=300 --posx=-530 --posy=420 --list --undecorated --title=" " --text="Select:" --radiolist --column=" " --column="$1" $2);
   [ -z "$choices" ] && exit || the_choice=$(echo "$choices" | cut -d'|' -f2)

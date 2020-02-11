@@ -4,16 +4,14 @@
 # DESCRIPTION: This is a menu that calls functions for my network.
 
 clear
-# --- default start ---
-cd $(dirname "$0")                # goes to the script folder
-source "header.sh"                # import header.sh
-Top() {
-  Title "NETWORK THINGS$lred!"
-}; Top                            # show the title
-# --- end of default start ---
+# --- default start ------------------------
+cd $(dirname "$0")                              # goes to the script folder
+source "default.sh"                             # import default.sh
+top() { title "NETWORK THINGS$lred!"; }; top    # show the title
+# --- end of default start -----------------
 
 source "network_functions.sh"     # import the network functions
-Connection                        # show the internet connection
+connection                        # show the internet connection
 
 # MENU ITEM - close option
 Exit/menu() {
@@ -22,10 +20,10 @@ Exit/menu() {
 
 # MENU ITEM - return option
 Return_to_menu_-_fast.sh/menu() {
-  if [ "$terminal" = "xfce4-terminal" ]; then
-    Terminal "--geometry=60x25+450+220 --hide-menubar --hide-toolbar --hide-borders -e ./fast.sh"
+  if [ "$the_terminal" = "xfce4-terminal" ]; then
+    terminal "--geometry=60x25+450+220 --hide-menubar --hide-toolbar --hide-borders -e ./fast.sh"
   else
-    Terminal "-e ./fast.sh"
+    terminal "-e ./fast.sh"
   fi; exit
 }
 
@@ -33,17 +31,17 @@ Return_to_menu_-_fast.sh/menu() {
 
 # MENU ITEM - run the wifi-menu choosing a network cards
 Run_the_wifi-menu/menu() {
-  RunTheWifiMenu
+  wifi
 }
 
 # MENU ITEM - connect to my favorite internet network
 Connect_to_wlp0s26u1u2-REDE5GHZ/menu() {
-  ConnectToREDE5GHZ
+  rede5ghz
 }
 
 # MENU ITEM - remove wrong netctl internet profiles
 Remove_a_netctl_profile/menu() {
-  RemoveNetctlProfile
+  remove_netctl_profile
 }
 
 # MENU ITEM - open netctl profiles folder
@@ -53,10 +51,13 @@ Open_netctl_profile_folder/menu() {
 
 # MENU ITEM - enable or disable a network card
 Enable_or_disable_a_network_card/menu() {
-  EnableDisableNetworkCard
+  enable_disable_networkCard
 }
 
-while :; do                      # infinite menu loop
-  echo -e "$gray " && FMenu      # create the network menu
-  clear && Top && Connection
+while :; do           # infinite menu loop
+  echo -e "$gray "
+  fmenu               # create the network menu
+  clear
+  top
+  connection
 done

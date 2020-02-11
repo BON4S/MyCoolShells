@@ -6,13 +6,13 @@
 # This little script captures data from my Google Calendar via gcalcli.
 # I use it to print my appointments on desktop (using Conky).
 
-RunGcalcli() {
+gcalcli() {
   initialdate=$(date +%Y-%m-%d)
   enddate=$(date +%Y-%m-%d -d "+ 15 day")   # stipulates the last 15 days for data capture
   gcalcli --nocolor agenda $initialdate $enddate
 }
 
-IFS=$'\n'; events=($(RunGcalcli))                     # capture the Google Calendar data
+IFS=$'\n'; events=($(gcalcli))                        # capture the Google Calendar data
 for n in "${!events[@]}"; do
   day=$(echo -ne ${events[n]} | cut -c 9-10)          # separate the day from captured
   month=$(echo -ne ${events[n]} | cut -c 5-7)         # month

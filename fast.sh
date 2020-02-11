@@ -8,13 +8,11 @@
 # and to put my other scripts in the same place, for quick access.
 
 clear
-# --- default start ---
-cd $(dirname "$0")          # goes to the script folder
-source "header.sh"          # import header.sh
-Top() {
-  Title "FAST MENU$lred!"
-}; Top                      # show the title
-# --- end of default start ---
+# --- default start -------------------
+cd $(dirname "$0")                          # goes to the script folder
+source "default.sh"                         # import default.sh
+top() { title "FAST MENU$lred!"; }; top     # show the title
+# --- end of default start ------------
 
 #  MENU ITEM - close all
 Exit_fast.sh/menu() {
@@ -23,19 +21,19 @@ Exit_fast.sh/menu() {
 
 # MENU ITEM - network things (see network.sh and network_functions.sh)
 Network_and_connections/menu() {
-  if [ "$terminal" = "xfce4-terminal" ]; then
-    Terminal "--geometry=90x25+450+220 --hide-menubar --hide-toolbar --hide-borders -e ./network.sh"
+  if [ "$the_terminal" = "xfce4-terminal" ]; then
+    terminal "--geometry=90x25+450+220 --hide-menubar --hide-toolbar --hide-borders -e ./network.sh"
   else
-    Terminal "-e ./network.sh"
+    terminal "-e ./network.sh"
   fi; exit
 }
 
 # MENU ITEM - the best way to update Arch (see update_arch.sh)
 Update_Arch_Linux/menu() {
-  if [ "$terminal" = "xfce4-terminal" ]; then
-    Terminal "--geometry=130x25+160+220 --hide-menubar --hide-toolbar --hide-borders -e ./update_arch.sh"
+  if [ "$the_terminal" = "xfce4-terminal" ]; then
+    terminal "--geometry=130x25+160+220 --hide-menubar --hide-toolbar --hide-borders -e ./update_arch.sh"
   else
-    Terminal "-e ./update_arch.sh"
+    terminal "-e ./update_arch.sh"
   fi; exit
 }
 
@@ -116,6 +114,7 @@ Edit_this_menu/menu() {
 
 while :; do             # infinite menu loop
   echo -e "\n$gray "
-  FMenu                 # create the network menu
-  clear && Top
+  fmenu                 # create the network menu
+  clear
+  top
 done

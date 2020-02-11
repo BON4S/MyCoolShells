@@ -1,8 +1,8 @@
 #!/bin/bash
-# SCRIPT: header.sh
+# SCRIPT: default.sh
 # AUTHOR: BON4S https://github.com/BON4S
 # DESCRIPTION: Basic code to use in all shell scripts.
-# USAGE: source "header.sh"
+# USAGE: source "default.sh"
 
 # set terminal initial background color
 printf %b "\e]11;#2b2d35\a"
@@ -43,8 +43,8 @@ reset_bg="\e[49m"                           # default bg color
 reset="\e[0m"
 
 # function to create titles
-# usage example: Title "TITLE NAME"
-Title() {
+# usage example:  title "TITLE NAME"
+title() {
   file_name="${0##*/}"
   echo -ne $bold$gray" $1 "$dim$gray$reverse" ${file_name^^} "$reset$gray" "
 }
@@ -55,8 +55,8 @@ Title() {
 #   menu_item_1/menu() {                  <-- "/menu" is required
 #     command
 #   }
-#   FMenu
-FMenu() {
+#   fmenu
+fmenu() {
   place="$1"
   if [ -z "$1" ]; then                              # check if any parameters have been passed
     place="$0"
@@ -67,18 +67,18 @@ FMenu() {
     num="($n+1)"
     echo -e " "$((num))." ${menu[n]//_/ }"          # replace underline with space and print the menu
   done
-  ErrorMessage() {
+  error() {
     echo -e "$lred MENU NUMBER!$gray " && sleep 2
   }
   echo
   read -p ' Nº ' opt
   o="($opt-1)"
   if [ -z "${menu[o]}" ]; then          # check if the typed is a nonexistent number
-    ErrorMessage
+    error
   else
     case $opt in
-      ''|*[!0-9]*) ErrorMessage ;;      # check if the typed is a number
-      0) ErrorMessage ;;                # check if the typed is zero
+      ''|*[!0-9]*) error ;;      # check if the typed is a number
+      0) error ;;                # check if the typed is zero
       *) "${menu[o]}/menu" ;;            # execute the function chosen by the user
     esac
   fi
@@ -87,44 +87,44 @@ FMenu() {
 # LIST MENU
 # easily create menus from a list
 # usage example:
-#   MenuAction() {                      <-- function that runs menu actions
+#   action() {                          <-- function that runs menu actions
 #     echo "${list[choice]}";           <-- "${list[choice]}" return user choice
-#   }; LMenu "$(ls /sys/class/net)"     <-- example list which will generate the menu
-LMenu() {
+#   }; lmenu "$(ls /sys/class/net)"     <-- example list which will generate the menu
+lmenu() {
   list=($1)
   for n in "${!list[@]}"; do
     num="($n+1)"
     echo -e " "$((num))." ${list[n]}"             # print the menu
   done
-  ErrorMessage() {
+  error() {
     echo -e "$lred MENU NUMBER!$gray" && sleep 2
   }
   echo
   read -p ' Nº ' opt                              # read the user choice
   choice="($opt-1)"
   if [ -z "${list[choice]}" ]; then               # check if the typed is a nonexistent number
-    ErrorMessage
+    error
   else
     case $opt in
-      ''|*[!0-9]*) ErrorMessage ;;                # check if the typed is a number
-      0) ErrorMessage ;;                          # check if the typed is zero
-      *) MenuAction ;;                            # execute the user function
+      ''|*[!0-9]*) error ;;                # check if the typed is a number
+      0) error ;;                          # check if the typed is zero
+      *) action ;;                            # execute the user function
     esac
   fi
 }
 
 # colored line
-Line() {
+line() {
   echo "================================================" | lolcat  # lolcat - the best linux program after 'cowsay'
 }
 
 # looks for a terminal installed on the user's computer
 # and runs it in parallel (setid) with parameters
-# usage example: Terminal "-e script.sh"
-# can also print the terminal name with: Terminal "name"
-#                                    or: echo $terminal
-Terminal() {
-  terms=(xfce4-terminal gnome-terminal konsole xterm) # terminal list
+# usage example: terminal "-e script.sh"
+# can also print the terminal name with: terminal "name"
+#                                    or: echo $the_terminal
+terminal() {
+  terms=(xfce4-terminal gnome-terminal konsole xterm)   # terminal list
   for t in ${terms[*]}; do
     if [ $(command -v $t) ]; then     # search for a terminal
       the_term=$t                     #
@@ -137,4 +137,4 @@ Terminal() {
     setsid $the_term $*               # execute the terminal with the parameter
   fi
 }
-terminal=$(Terminal "name")           # put the terminal name into a variable
+the_terminal=$(terminal "name")       # put the terminal name into a variable

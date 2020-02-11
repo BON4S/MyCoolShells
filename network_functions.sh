@@ -4,7 +4,7 @@
 # DESCRIPTION: Network functions.
 
 # show the internet connection status
-Connection() {
+connection() {
   wget -q --spider https://google.com
   if [ $? -eq 0 ]; then
     adapter=$(iwgetid | cut -d" " -f1)
@@ -16,41 +16,41 @@ Connection() {
 }
 
 # run the wifi-menu choosing a network cards
-RunTheWifiMenu() {
+wifi() {
   echo -e "\n WIFI-MENU"
-  echo -e "\n Choose a device"
-  MenuAction() {
+  echo -e "\n Choose a interface"
+  action() {
     sudo wifi-menu "${list[choice]}"
-  }; LMenu "$(ls /sys/class/net)"
+  }; lmenu "$(ls /sys/class/net)"
 }
 
 # connect to my favorite internet network
-ConnectToREDE5GHZ() {
+rede5ghz() {
   sudo netctl-auto switch-to wlp0s26u1u2-REDE5GHZ
 }
 
 # with that you can remove a wrong internet profile
-RemoveNetctlProfile() {
+remove_netctl_profile() {
   IFS=$'\n'; perfis=$(ls /etc/netctl/ | grep 'wlp')
   echo -e "\n PROFILES"
-  MenuAction() {
+  action() {
     echo -e " PROFILE TO REMOVE:$yellow ${list[choice]}$gray "
     sudo rm "/etc/netctl/${list[choice]}"
     echo " DONE!"
     sleep 2
-  }; LMenu "$perfis"
+  }; lmenu "$perfis"
 }
 
 # enable or disable a network card
-EnableDisableNetworkCard() {
+enable_disable_network_card() {
   echo -e "\n ENABLE/DISABLE A NETWORK CARD"
-  echo -e "\n Choose a device"
-  MenuAction() {
+  echo -e "\n Choose a interface"
+  action() {
     read -p " 'e' to enable or 'd' to disable: " choose
     case $choose in
       "e") sudo ifconfig "${list[choice]}" up && echo " OK!" && sleep 2 ;;
       "d") sudo ifconfig "${list[choice]}" down && echo " OK!" && sleep 2 ;;
       *) echo -e "\n$lred WRONG!$gray " && sleep 2 ;;
     esac
-  }; LMenu "$(ls /sys/class/net)"
+  }; lmenu "$(ls /sys/class/net)"
 }
