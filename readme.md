@@ -60,14 +60,14 @@ DEPENDENCIES:
 
 ```bash
 # Arch users (yay):
-yay -S weather
+yay -S pup
 ```
 
 - To use the currency function it is necessary to install: [weather](http://fungi.yuggoth.org/weather/)
 
 ```bash
 # Arch users (yay):
-yay -S pup
+yay -S weather
 ```
 
 TIP 1:

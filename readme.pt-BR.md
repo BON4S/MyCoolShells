@@ -62,14 +62,14 @@ DEPENDÊNCIAS:
 
 ```bash
 # Usuário do Arch (yay):
-yay -S weather
+yay -S pup
 ```
 
 - Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
 
 ```bash
 # Usuário do Arch (yay):
-yay -S pup
+yay -S weather
 ```
 
 DICA 1:
