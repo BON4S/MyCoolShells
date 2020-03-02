@@ -146,8 +146,9 @@ generator() {
   <!-- ~~~~~~~~~~~~~~~~~~~~~~  Date  ~~~~~~~~~~~~~ -->
     <div>
       <p>
+        <b>Updated at</b>&nbsp;&nbsp;
   "
-  date "+%m de %B de %Y (%A)"
+  date +"%H:%M, %m de %B de %Y (%A)"
   echo "
       </p>
     </div>
@@ -201,7 +202,7 @@ generator() {
   feed "The Japan Times" "https://www.japantimes.co.jp/feed/topstories"
   feed "Público (Portugal)" "http://feeds.feedburner.com/PublicoRSS"
 # ----
-  feed "Diolinux" "https://www.diolinux.com.br/feeds/posts/default?alt=rss"
+  feed "Diolinux" "https://feeds.feedburner.com/Diolinux?format=xml"
   feed "Phoronix" "https://www.phoronix.com/rss.php"
   feed "TecMundo" "https://rss.tecmundo.com.br/feed"
   feed "Arch Linux Brasil" "https://www.archlinux-br.org/feeds/news/"
