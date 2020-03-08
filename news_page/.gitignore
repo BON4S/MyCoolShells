@@ -1,0 +1,2 @@
+# This gitignore prevents the upload of your configuration files.
+news_settings*
