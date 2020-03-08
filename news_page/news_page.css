@@ -25,7 +25,7 @@ h3 a {
 p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box p a, a.pretty-link, .js-pinned-text, .js-retweet-text,
 .tweet-text, .QuoteTweet-text, .fullname, .username, .time, .stream-item-header, .stream-item-header a,
 .account-group, .u-hiddenVisually, .tweet-timestamp, .PlayableMedia-title, .PlayableMedia-description,
-.PlayableMedia-attribution {
+.PlayableMedia-attribution, .Tombstone {
   font-family: 'SF Pro Text', 'Graphik', 'Helvetica Neue', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-size: 12px;
   line-height: 16px;
@@ -37,6 +37,14 @@ p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box p a, a.pretty-link, .js-pinne
 p, h2, h2 a, h3, h3 a {
   margin: 13px 0;
   text-align: left;
+}
+
+pre {
+  text-align: left;
+}
+
+button {
+  margin: 2px;
 }
 
 .tweets-box a {
@@ -133,7 +141,8 @@ img.Emoji, img.twitter-hashflag {
 .avatar, .js-action-profile-avatar, .ReplyingToContextBelowAuthor, .ProfileTweet-action,
 .ProfileTweet-action--more, .js-more-ProfileTweet-actions, .UserBadges, ._timestamp,
 .twitter-timeline-link, .u-hiddenVisually, .stream-item-footer, .self-thread-context,
-.self-thread-tweet-cta, .media-tags-container, .AdaptiveMedia-badgeText, .hide {
+.self-thread-tweet-cta, .media-tags-container, .AdaptiveMedia-badgeText, .Tombstone-inlineAction,
+.Tombstone-action, .hide {
   display: none;
 }
 

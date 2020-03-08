@@ -27,29 +27,22 @@ chmod +x *.sh && chmod +x /news_page/*.sh
 
 This script extracts news from various websites and creates a lightweight and practical html document.
 
-The script also shows Twitter posts, currency quotes and weather.
+The script also shows Twitter posts, currency quotes, weather and custom shell script outputs.
 
-LIGHT THEME (default)
-
-![news_page_image](screenshots/screenshot-news-light.png)
-
-DARK THEME (the coolest) running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
+NEWS PAGE DARK THEME (running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 
 ![news_page_image](screenshots/screenshot-news-dark.gif)
 
 USAGE:
 
-Insert your favorite news links (rss) into the script, and run it. You can run the script without parameters, or you can specify the dark theme and directory to save the page, just like in these three examples:
+Insert your favorite news links (rss) in the settings file "**news_settings➜default.sh**" and run the script. You can run the script without parameters, or you can specify a custom settings file, as in the examples below:
 
 ```bash
 # Without parameters:
 ./news_page.sh
 
-# Specifying the dark theme:
-./news_page.sh --dark
-
-# Specifying the directory to save:
-./news_page.sh -d /folder/to/save
+# Specifying the settings file:
+./news_page.sh -s news_settings➜Los_Angeles.sh
 ```
 
 *news_page.html* will be generated.
@@ -61,6 +54,9 @@ DEPENDENCIES:
 ```bash
 # Arch users (yay):
 yay -S pup
+
+# Users from other distros: Download the zipped executable from the link below and unzip it to the '/bin' folder.
+# https://github.com/EricChiang/pup/releases/tag/v0.4.0
 ```
 
 - To use the currency function it is necessary to install: [weather](http://fungi.yuggoth.org/weather/)
@@ -68,6 +64,9 @@ yay -S pup
 ```bash
 # Arch users (yay):
 yay -S weather
+
+# Debian and Ubuntu users:
+sudo apt-get install weather-util
 ```
 
 TIP 1:
@@ -76,7 +75,7 @@ If you use Firefox, install my extension to get feed links easily: [Kill and Mor
 
 TIP 2:
 
-You can schedule the script to run every 3 hours by editing cron with the command:
+You can schedule the script to run every 12 hours by editing cron with the command:
 
 ```bash
 export VISUAL=nano; crontab -e
@@ -85,7 +84,7 @@ export VISUAL=nano; crontab -e
 and inside the edition insert a line like this:
 
 ```txt
-0 */3 * * * /home/your_username/scripts_folder/news_page/news_page.sh --dark
+0 */12 * * * /home/your_username/scripts_folder/news_page/news_page.sh -s news_settings➜Los_Angeles.sh
 ```
 
 </details>

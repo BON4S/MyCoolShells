@@ -14,8 +14,8 @@ div {
   scrollbar-color: #d5d5d5 #eaeaea;
 }
 
-p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box a, .PlayableMedia-title, 
-.PlayableMedia-description {
+#content, p, h2, h2 a, h3, h3 a, pre, .flex, .flex a, .tweets-box a,
+.PlayableMedia-title, .PlayableMedia-description {
   color: #737373;
 }
 

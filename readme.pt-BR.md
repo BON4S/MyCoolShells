@@ -29,29 +29,22 @@ chmod +x *.sh && chmod +x /news_page/*.sh
 
 Esse script extrai notícias de vários sites e cria um documento html leve e prático.
 
-O script também mostra posts do Twitter, cotação de moedas e dados metereológicos.
+O script também mostra posts do Twitter, cotação de moedas, dados metereológicos e saídas de comandos no bash.
 
-TEMA CLARO (padrão)
-
-![news_page_image](screenshots/screenshot-news-light.png)
-
-TEMA ESCURO (o mais legal) rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/)
+NEWS PAGE DARK THEME (rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 
 ![news_page_image](screenshots/screenshot-news-dark.gif)
 
 USO:
 
-Insira seus links (rss) de notícias favoritos no script e execute-o. Tu podes rodar o script sem parâmetros, ou especificar o tema escuro e o diretório para salvar a página, assim como nos três exemplos abaixo:
+Insira teus links (rss) de notícias favoritos no arquivo de configuração "**news_settings➜default.sh**" e rode o script. Tu podes rodar o script sem parâmetros, ou especificar um arquivo de configuração personalizado, assim como nos exemplos abaixo:
 
 ```bash
 # Exemplo sem parâmetros:
 ./news_page.sh
 
-# Exemplo para o tema dark:
-./news_page.sh --dark
-
-# Exemplo indicando o local para salvar:
-./news_page.sh -d /pasta/para/salvar
+# Exemplo indicando um arquivo de configuração:
+./news_page.sh -s news_settings➜Rio_de_Janeiro.sh
 ```
 
 *news_page.html* será gerado.
@@ -63,6 +56,9 @@ DEPENDÊNCIAS:
 ```bash
 # Usuário do Arch (yay):
 yay -S pup
+
+# Usuário de outra distro: Faça o download do executável zipado no link abaixo e descompacte-o na pasta "/bin".
+# https://github.com/EricChiang/pup/releases/tag/v0.4.0
 ```
 
 - Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
@@ -70,6 +66,9 @@ yay -S pup
 ```bash
 # Usuário do Arch (yay):
 yay -S weather
+
+# Usuário do Debian ou Ubuntu:
+sudo apt-get install weather-util
 ```
 
 DICA 1:
@@ -78,7 +77,7 @@ Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmen
 
 DICA 2:
 
-Para manter a página atualizada, você pode agendar o script para ser executado a cada 3 horas, basta editar o 'cron' com o comando:
+Para manter a página atualizada, você pode agendar o script para ser executado a cada 12 horas, basta editar o 'cron' com o comando:
 
 ```bash
 export VISUAL=nano; crontab -e
@@ -87,7 +86,7 @@ export VISUAL=nano; crontab -e
 e dentro da edição insira uma nova linha como essa (com o caminho completo ao script):
 
 ```txt
-0 */3 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh --dark
+0 */12 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh -s news_settings➜Pindamonhangaba.sh
 ```
 
 </details>

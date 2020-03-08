@@ -14,8 +14,8 @@ div {
   scrollbar-color: #404040 #2b2926;
 }
 
-hr, p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box a, .PlayableMedia-title, 
-.PlayableMedia-description {
+#content, hr, p, h2, h2 a, h3, h3 a, pre, .flex, .flex a, .tweets-box a,
+.PlayableMedia-title, .PlayableMedia-description {
   color: rgb(202, 187, 159);
   text-shadow: 0 0 2px #000000ba;
 }
@@ -31,6 +31,16 @@ hr, p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box a, .PlayableMedia-title,
 
 a.twitter-timeline-link {
   color: rgb(104, 54, 48);
+}
+
+.Tombstone {
+  color: rgb(172, 99, 91);
+}
+
+button {
+  background-color: #643131;
+  border-color: #262424;
+  color: #e6c5c5;
 }
 
 a.pretty-link {
@@ -61,6 +71,6 @@ div.tweet {
   color: #4a4a4a;
 }
 
-#top-line, #twitter-line, hr {
+.top-line, #twitter-line, hr {
   opacity: 0.4;
 }

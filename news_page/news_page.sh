@@ -7,11 +7,12 @@
 # and with that information it creates a lightweight html document.
 #
 # USAGE:
-# You can run the script without parameters, or you can specify the dark theme
-# and directory to save the page, just like in these three examples:
+# You can run the script without parameters, or you can specify the settigns file
+# like in these examples:
 # ./news_page.sh
-# ./news_page.sh --dark
-# ./news_page.sh -d /folder/to/save
+# ./news_page.sh -s news_settings➜Los_Angeles.sh
+# and to use this script you don't need to edit this file,
+# YOU MUST EDIT THE FILE: news_settings➜default.sh
 #
 # DEPENDENCIES:
 # 1 - To use the Twitter function it is necessary to install: pup (a HTML parser).
@@ -25,34 +26,34 @@
 # 1 - If you use Firefox, install my extension to get feed links easily:
 #     https://github.com/BON4S/KillAndMore
 #
-# 2 - You can schedule the script to run every 3 hours by editing cron with the command:
+# 2 - You can schedule the script to run every 12 hours by editing cron with the command:
 #     export VISUAL=nano; crontab -e
 #     And inserting a new line like this:
-#     0 */3 * * * /home/your_username/scripts_folder/news_page/news_page.sh --dark
+#     0 */12 * * * /home/your_username/scripts_folder/news_page/news_page.sh
 #
 # FIXME:
 # 1 - A few pages are not loading (commented '#' in the code).
-#
 
 # goes to script folder
 cd $(dirname "$0")
 
-# default file name
-file="news_page.html"
+# deafault settings file
+settings="news_settings➜default.sh"
 
-# checks for parameters
-color="light"
+# checks for settings parameter
 while [ -n "$1" ]; do
   case "$1" in
-    -d | --dir)
-      file="$2/news_page.html"
+    -s | --settings)
+      settings=$2
       shift
       ;;
-    --dark) color="dark" ;;
     *) echo "Option $1 not recognized" ;;
   esac
   shift
 done
+
+# get the settings
+source $settings
 
 # this takes news from a website
 feed() {
@@ -72,6 +73,51 @@ feed() {
   echo "</div>"
 }
 
+# block with useful information
+infos() {
+  echo "
+  <div class='news'>
+    <h2 class='news-site'>Useful Information</h2>
+    <h3 class='news-titles'>
+      <a href=''>News updated at: 
+  "
+  date +"$update_time_format - $update_date_format"
+  echo "
+      </a>
+    </h3>
+    <h3 class='news-titles'>
+      <a href='$currency_link'>Currency: 
+  "
+  currency $currency_conversion
+  echo "
+      </a>
+    </h3>
+  "
+  custom_command
+  echo "
+    <h2 class='news-site'>$city_name</h2>
+    <h3 class='news-titles'>
+      <a href='$city_link'>
+  "
+  weather-report -q --headers=TEMPERATURE "$weather_report"
+  echo "➜ "
+  date +"$update_time_format"
+  echo "
+      </a>
+    </h3>
+    <h3 class='news-titles'>
+      <a href='$city_link'>
+  "
+  weather-report -q --headers=RELATIVE_HUMIDITY "$weather_report"
+  echo "➜ "
+  date +"$update_time_format"
+  echo "
+      </a>
+    </h3>
+  </div>
+  "
+}
+
 # get tweets
 twitter() {
   url="https://twitter.com/$2"
@@ -84,196 +130,169 @@ twitter() {
 
 # this takes the value of one currency and converts it to another currency
 currency() {
-  value=$(wget -qO- "https://api.exchangeratesapi.io/latest?base=$1" | grep -Eo "$2\":[0-9.]*" | grep -Eo "[0-9.]*") > /dev/null
+  value=$(wget -qO- "https://api.exchangeratesapi.io/latest?base=$1" |
+  grep -Eo "$2\":[0-9.]*" | grep -Eo "[0-9.]*") > /dev/null
   echo "1 $1 = ${value:0:4} $2"
 }
 
 # stylization
-css=`cat news_page.css`   # css that is applied to all themes (light and dark)
-if [ "$color" == "dark" ]; then
-  theme=`cat news_page_dark_theme.css`    # dark css theme
-else
-  theme=`cat news_page_light_theme.css`   # light css theme
-fi
+css1=`cat $css_default`     # css that is applied to all themes
+css2=`cat $css_theme`       # css color theme
 
 # html top code
-top="
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>NEWS</title>
-    <style>$css$theme</style>
-  </head>
-  <body>
-    <div id='content'>
+top_html="
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset='UTF-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>NEWS</title>
+      <style>$css1$css2</style>
+    </head>
+    <body>
+      <div id='content'>
 "
 
 # html bottom code
-bottom="
-    </div>
-  </body>
-</html>
+bottom_html="
+      </div>
+    </body>
+  </html>
 "
 
-# start of news page generator code
-generator() {
-  echo "$top"
+# formats the current date
+current_date="
+  let today = new Date();
+  let yyyy = today.getFullYear();
+  let m = (today.getMonth()+1).toString();
+  let mm = (m.length == 1) ? '0'+m : m;
+  let d = today.getDate().toString();
+  let dd = (d.length == 1) ? '0'+d : d;
+  document.getElementById('dateElement').innerHTML = $current_time_format;
+"
 
-  # top line
-  echo "
+# puts the browser in full screen
+full_screen="
+  function fullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+  } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen(); 
+      }
+    }
+  }
+"
+
+# adjusts the brightness of news headlines
+news_brightness="
+  function newsBrightness() {
+    var element = document.querySelectorAll('.news-titles');
+    [].forEach.call(element, function(e) {
+      e.classList.toggle('brightness');
+    });
+  }
+"
+
+# top line
+header="
   <span id='top'></span>
-  <div id='top-line' class='flex'>  <!-- #top-line start -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Currency  ~~~~~~~~~ -->
-    <div>
-      <p><b>Currency</b> &nbsp;
-  "
-  currency USD BRL
-  echo "
-      </p>
+  <div class='top-line flex'>
+    <div class='left'>
     </div>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Weather  ~~~~~~~~~~ -->
-    <div>
-      <a href='http://tempo.clic.com.br/rs/porto-alegre'><b>Porto Alegre</b> &nbsp;&nbsp;
-  "
-  weather-report -q --headers=TEMPERATURE "Porto Alegre Aero-Porto, Brazil"
-  echo "&nbsp;&nbsp;"     # blank space
-  weather-report -q --headers=RELATIVE_HUMIDITY "Porto Alegre Aero-Porto, Brazil"
-  echo "
-      </a>
-    </div>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Date  ~~~~~~~~~~~~~ -->
-    <div>
-      <p>
-        <b>Updated at</b>&nbsp;&nbsp;
-  "
-  date +"%H:%M, %m de %B de %Y (%A)"
-  echo "
-      </p>
-    </div>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Screen Control  ~~~ -->
     <div class='right'>
+      <span>
+        <a style='margin:0;' href='$city_link'><b>
+          $city_name &nbsp;
+          <span id='dateElement'></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </b></a>
+      </span>
       <span class='control'>
         <a href='#top' onclick='newsBrightness()'>☀</a>
         <a href='#top' onclick='fullScreen()'>⤢</a>
         <a href='#line1'>↓</a>
       </span>
     </div>
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~  Top Line End  ~~~~~ -->
-  </div>  <!-- #top-line end -->
-  "
-
-  # full screen and news brightness
-  echo "
+  </div> 
   <script>
-    function fullScreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen(); 
-        }
-      }
-    }
-    function newsBrightness() {
-      var element = document.querySelectorAll('.news-titles');
-      [].forEach.call(element, function(e) {
-        e.classList.toggle('brightness');
-      });
-    }  
+    $current_date
+    $full_screen
+    $news_brightness
   </script>
-  "
+"
 
-  # news section
-# ----
-  feed "InfoMoney" "https://www.infomoney.com.br/feed/"
-  feed "Google News BR" "https://news.google.com/rss?cf=all&pz=1&hl=pt-BR&gl=BR&ceid=BR:pt-419"
-  feed "The Wall Street Journal" "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
-  feed "Trend Topics BR" "https://trends.google.com/trends/trendingsearches/daily/rss?geo=BR" "10"
-# ----
-  feed "Money Times" "https://moneytimes.com.br/feed/"
-  feed "Orange County Register" "https://www.ocregister.com/news/feed/"
-  feed "CBS8" "https://feeds.feedblitz.com/cbs8/news&x=1"
-  feed "Gazeta News" "https://gazetanews.com/feed/?post_type=jm_breaking_news"
-# ----
-  feed "Times of India" "https://timesofindia.indiatimes.com/rssfeedstopstories.cms"
-  feed "TASS" "http://tass.com/rss/v2.xml"
-  feed "The Japan Times" "https://www.japantimes.co.jp/feed/topstories"
-  feed "Público (Portugal)" "http://feeds.feedburner.com/PublicoRSS"
-# ----
-  feed "Diolinux" "https://feeds.feedburner.com/Diolinux?format=xml"
-  feed "Phoronix" "https://www.phoronix.com/rss.php"
-  feed "TecMundo" "https://rss.tecmundo.com.br/feed"
-  feed "Arch Linux Brasil" "https://www.archlinux-br.org/feeds/news/"
-# ----
-  feed "Porto Imagem" "https://portoimagem.wordpress.com/feed/"
-  feed "Sociedade Militar" "https://www.sociedademilitar.com.br/wp/feed"
-  feed "Suno Notícias" "https://www.sunoresearch.com.br/noticias/feed/"
-  feed "Trend Topics US" "https://trends.google.com/trends/trendingsearches/daily/rss?geo=US" "10"
-# ----
-  feed "Gizmodo BR" "https://gizmodo.uol.com.br/feed/"
-  feed "HypeScience" "https://hypescience.com/feed/"
-  feed "Folha de SP" "http://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
-  feed "The New York Times" "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
-# ----
+# twitter top line functions
+twitter_topline_controls="
+  function twitterShowHide() {
+    var element = document.querySelector('#the-twitter');
+    element.classList.toggle('hide');
+  }
+  function twitterBrightness() {
+    var element = document.querySelectorAll('.tweets-box');
+    [].forEach.call(element, function(e) {
+      e.classList.toggle('brightness');
+    });
+  }
+"
 
-  # twitter top line
-  echo "
-    <hr id='line1'>
-    <div id='twitter-line' class='flex'>
-
-      <div class='left'>
-      </div>
-
-      <div class='right'>
-        <span class='control'>
-          <a href='#line1' onclick='twitterBrightness()'>☀</a>
-          <a href='#line1' alt='Full Screen' onclick='fullScreen()'>⤢</a>
-          <a href='#top'>↑</a>
-        </span>
-        <a href='#line1' onclick='twitterShowHide()'>Twitter Show/Hide</a>
-      </div>
-
-      <script>
-        function twitterShowHide() {
-          var element = document.querySelector('#the-twitter');
-          element.classList.toggle('hide');
-        }
-        function twitterBrightness() {
-          var element = document.querySelectorAll('.tweets-box');
-          [].forEach.call(element, function(e) {
-            e.classList.toggle('brightness');
-          });
-        }
-      </script>
-
+# twitter top line
+twitter_top_line="
+  <hr id='line1'>
+  <div id='twitter-line' class='flex'>
+    <div class='left'>
     </div>
+    <div class='right'>
+      <span class='control'>
+        <a href='#line1' onclick='twitterBrightness()'>☀</a>
+        <a href='#line1' alt='Full Screen' onclick='fullScreen()'>⤢</a>
+        <a href='#top'>↑</a>
+      </span>
+      <a href='#line1' onclick='twitterShowHide()'>Twitter Show/Hide</a>
+    </div>
+    <script>
+      $twitter_topline_controls
+    </script>
+  </div>
+"
+
+# news page generator code
+generator() {
+  echo "
+    $top_html
+    $header
   "
-
-  # get tweets
-  echo "<div id='the-twitter' class='hide'>"
-  twitter "President of Brazil - Jair Bolsonaro" "jairbolsonaro"
-  twitter "President of United States - Donald Trump" "realDonaldTrump"
-  twitter "President of Argentina - Alberto Fernández" "alferdez"
-  echo "</div>" # id: the-twitter
-
-# FEED LINKS THAT DIDN'T WORK (FIXME)
-#  feed "The Hindu" "https://www.thehindu.com/feeder/default.rss"
-#  feed "Aljazera" "https://www.aljazeera.com/xml/rss/all.xml"
-#  feed "Xinhua" "http://www.xinhuanet.com/english/rss/chinarss.xml"
-#  feed "Jornal do Comércio" "https://www.jornaldocomercio.com/_conteudo/economia/rss.xml"
-#  feed "DefesaNet" "http://www.defesanet.com.br/capa/rss/"
-#  feed "East-West" "https://www.ewdn.com/feed/"
-#  feed "Financial Times" "https://www.ft.com/news-feed?format=rss"
-#  feed "El País BR" "https://brasil.elpais.com/rss/brasil/portada.xml"
-
-  echo "$bottom"
-};  # end of news page generator code
+  # news section
+  news
+  # twitter section
+  echo "
+    $twitter_top_line
+    <div id='the-twitter' class='$twitter_hide'>
+  "
+  twitters
+  echo "
+    </div>
+    $bottom_html
+  " 
+};
 
 # news page generator launcher
 echo -e "\n GENERATING THE NEWS PAGE..\n"
-generator > $file
+generator > $directory$file
 
 # la grande finale (French)
 echo -e "\n DONE!\n"
+
+# USEFUL REFERENCE:
+# Shell Naming Conventions
+# https://google.github.io/styleguide/shellguide.html#s7-naming-conventions
+
+# FEED LINKS THAT DIDN'T WORK (FIXME)
+# feed "The Hindu" "https://www.thehindu.com/feeder/default.rss"
+# feed "Aljazera" "https://www.aljazeera.com/xml/rss/all.xml"
+# feed "Xinhua" "http://www.xinhuanet.com/english/rss/chinarss.xml"
+# feed "Jornal do Comércio" "https://www.jornaldocomercio.com/_conteudo/economia/rss.xml"
+# feed "DefesaNet" "http://www.defesanet.com.br/capa/rss/"
+# feed "East-West" "https://www.ewdn.com/feed/"
+# feed "Financial Times" "https://www.ft.com/news-feed?format=rss"
+# feed "El País BR" "https://brasil.elpais.com/rss/brasil/portada.xml"
