@@ -92,13 +92,29 @@ Virtual_drives/menu() {
 
 # MENU ITEM - virtualizations
 Emulate_something/menu() {
-  echo -e "\n 1. Windows 10\n"
+  echo -e "
+    1. Windows 10
+    2. MacOS Catalina
+    3. Android\n"
   read -p " Nº: " opt
   case $opt in
     "1") nohup VBoxManage startvm "3554780d-ed53-477f-8d0e-b03292951a3e" & ;;
+    "2") /home/bonas/os/macOS/bon4smac.sh ;;
+    "3") emulator -no-snapshot-save @Nexus_S_API_28 & ;;
     *) echo -e "\n$lred WRONG!$gray " && sleep 2 ;;
   esac
   exit
+}
+
+# MENU ITEM - weather in the current location
+Weather_forecast/menu() {
+  nohup xfce4-terminal --fullscreen -H -e "curl https://wttr.in/"
+  exit
+}
+
+Disk_usage/menu() {
+  df -h -t ext4
+  read
 }
 
 # MENU ITEM - edit this file with the best editor in the world: nano
@@ -114,7 +130,7 @@ Edit_this_menu/menu() {
 
 while :; do             # infinite menu loop
   echo -e "\n$gray "
-  fmenu                 # create the network menu
+  fmenu2                # create the menu
   clear
   top
 done
