@@ -1,6 +1,6 @@
 #
 
-ENGLISH README - *English is not my first language, so if you see something wrong please correct me.*
+ENGLISH README - _English is not my first language, so if you see something wrong please correct me._
 
 You can also read this in another language: [Portuguese](readme.pt-BR.md)
 
@@ -17,17 +17,19 @@ chmod +x *.sh && chmod +x /news_page/*.sh
 ./the_script.sh
 ```
 
+Below I put screenshots and explanation of some scripts.
+
 **CLICK BELOW TO EXPAND:**
 
 <details>
 
-<summary>news_page.sh</summary>
+<summary>🗗 news_page.sh</summary>
 
-## *FILE: news_page.sh*
+## _FILE: news_page.sh_
 
 This script extracts news from various websites and creates a lightweight and practical html document.
 
-The script also shows Twitter posts, currency quotes, weather and custom shell script outputs.
+The script also shows Twitter posts, GitHub feeds, currency quotes, weather and custom shell script outputs.
 
 NEWS PAGE DARK THEME (running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 
@@ -45,7 +47,7 @@ Insert your favorite news links (rss) in the settings file "**news_settings➜de
 ./news_page.sh -s news_settings➜Los_Angeles.sh
 ```
 
-*news_page.html* will be generated.
+_news_page.html_ will be generated.
 
 DEPENDENCIES:
 
@@ -87,27 +89,35 @@ and inside the edition insert a line like this:
 0 */12 * * * /home/your_username/scripts_folder/news_page/news_page.sh -s news_settings➜Los_Angeles.sh
 ```
 
+TIP 3:
+
+You can get the main feed from your GitHub, to do this go to the homepage and copy the link where it says "Subscribe to your news feed". And put in your configuration file something like:
+
+```text
+feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWERTYQWERTY" "8"
+```
+
+In addition to the main feed you can also get project commits, as in the image below:
+
+![news_page_image](screenshots/screenshot-news-github.gif)
+
 </details>
 
 <details>
 
-<summary>default.sh</summary>
+<summary>🗗 default.sh</summary>
 
-## *FILE: default.sh*
+## _FILE: default.sh_
 
-This is a basic code that I created to be used in all shell scripts as a common code. It serves to stylize the texts used in the scripts, creating clean and readable code, and is also useful for creating menus quickly in a different way.
+This is a basic code that I created to be used in all shell scripts as a common code. This is useful to stylize texts, and to create menus quickly.
 
-To use this, just include the code in your script:
+To use this, import default.sh at the beginning of your script code:
 
 ```bash
 source "default.sh"
 ```
 
-***TEXT STYLIZER***
-
-With default.sh, we can style the text with variables and functions.
-
-EXEMPLES
+**_TEXT STYLIZER FEATURE_**
 
 Without default.sh:
 
@@ -133,13 +143,11 @@ echo -e "$bg_white$bold$red Bold Red Text on White Background "
 
 Both examples print exactly the same result.
 
-*See other color and style options inside default.sh.*
+_See other color and style options inside the file default.sh._
 
-***MENU CREATOR***
+**_MENU CREATOR FEATURE_**
 
-With default.sh we can also create menus from functions with the ***fmenu*** command, or from lists with the ***lmenu*** command. See the examples below:
-
-![default.sh_menu_image](screenshots/screenshot-menu.gif)
+With default.sh we can create menus from functions with the **_fmenu_** and **_fmenu2_** commands, or from lists with the **_lmenu_** and **_lmenu2_** commands. See the examples below:
 
 FUNCTION MENU
 
@@ -190,13 +198,26 @@ In this example, your network interfaces will be listed as a menu:
  Nº
 ```
 
+LIST AND FUNTION MENUS **2**
+
+**fmenu2** and **lmenu2** do the same things as the previous ones, but they have support for the keyboard.
+
+```text
+⇩ down:             next item
+⇧ up:               previous item
+⇨ right or space:   choose the option
+⇦ left or q:        quit
+```
+
+![default.sh_menu_image](screenshots/screenshot-menu.gif)
+
 </details>
 
 <details>
 
-<summary>update_arch.sh</summary>
+<summary>🗗 update_arch.sh</summary>
 
-## *FILE: update_arch.sh*
+## _FILE: update_arch.sh_
 
 This script is a good way to update the Arch Linux without errors during the process.
 
@@ -227,9 +248,9 @@ Dependencies: newsboat; ClamAV; unofficial ClamAV signatures script; Yay; reflec
 
 <details>
 
-<summary>google_calendar.sh</summary>
+<summary>🗗 google_calendar.sh</summary>
 
-## *FILE: google_calendar.sh*
+## _FILE: google_calendar.sh_
 
 This little script captures data from my Google Calendar via gcalcli.
 

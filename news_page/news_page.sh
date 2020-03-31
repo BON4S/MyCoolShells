@@ -58,15 +58,85 @@ source $settings
 # this takes news from a website
 feed() {
   url=$2
-  content=$(wget --timeout=5 --tries=2 -O- ${url}) 
-  IFS=$'\n'; title=($(xmllint --xpath '//item/title/text()' - <<<"$content"))     # extract the title
-  IFS=$'\n'; link=($(xmllint --xpath '//item/link/text()' - <<<"$content"))       # extract the link
+  content=$(wget --timeout=7 --tries=2 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'title']/text()" - <<<"$content")) # extract the title
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'link']/text()" - <<<"$content"))   # extract the link
   echo -ne "<div class='news'><h2 class='news-site'>$1</h2>"
   if [ -z "$3" ]; then
     limit=6             # limits the amount of news displayed by each site
   else
     limit=$3            # you can specify the amount of news for an individual link (third parameter)
   fi
+  for ((i=0; i<$limit; ++i)) do
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
+  done
+  echo "</div>"
+}
+
+# feed-2n is like feed, but it shows two news items in the same block
+# and is MANDATORY to pass 6 parameters, as below:
+# feed-2n "TITLE 1" "LINK 1" "NUMBER OF NEWS 1" \
+#         "TITLE 2" "LINK 2" "NUMBER OF NEWS 2" 
+feed-2n() {
+  url=$2
+  content=$(wget --timeout=20 --tries=1 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'title']/text()" - <<<"$content"))       # extract the title
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'link']/text()" - <<<"$content"))  # extract the link
+  echo -ne "<div class='news'><h2 class='news-site'>$1</h2>"
+  limit=$3
+  for ((i=0; i<$limit; ++i)) do
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
+  done
+  url=$5
+  content=$(wget --timeout=20 --tries=1 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'title']/text()" - <<<"$content"))
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'item']/*[name() = 'link']/text()" - <<<"$content"))
+  echo -ne "<hr><h2 class='news-site'>$4</h2>"
+  limit=$6
+  for ((i=0; i<$limit; ++i)) do
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
+  done
+  echo "</div>"
+}
+
+# this takes news from a website using a different format (like the GitHub atom feed)
+feed2() {
+  url=$2
+  content=$(wget --timeout=20 --tries=1 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'title']/text()" - <<<"$content"))       # extract the title
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'link']/@href" - <<<"$content" | sed -r 's/.*href="([^"]+).*/\1/g'))  # extract the link
+  echo -ne "<div class='news'><h2 class='news-site'>$1</h2>"
+  if [ -z "$3" ]; then
+    limit=6             # limits the amount of news displayed by each site
+  else
+    limit=$3            # you can specify the amount of news for an individual link (third parameter)
+  fi
+  for ((i=0; i<$limit; ++i)) do
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
+  done 
+  echo "</div>"
+}
+
+# feed2-2n is like feed2, but it shows two news items in the same block
+# and is MANDATORY to pass 6 parameters, as below:
+# feed2-2n "TITLE 1" "LINK 1" "NUMBER OF NEWS 1" \
+#          "TITLE 2" "LINK 2" "NUMBER OF NEWS 2" 
+feed2-2n() {
+  url=$2
+  content=$(wget --timeout=20 --tries=1 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'title']/text()" - <<<"$content"))       # extract the title
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'link']/@href" - <<<"$content" | sed -r 's/.*href="([^"]+).*/\1/g'))  # extract the link
+  echo -ne "<div class='news'><h2 class='news-site'>$1</h2>"
+  limit=$3
+  for ((i=0; i<$limit; ++i)) do
+    echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
+  done
+  url=$5
+  content=$(wget --timeout=20 --tries=1 -O- ${url}) 
+  IFS=$'\n'; title=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'title']/text()" - <<<"$content"))
+  IFS=$'\n'; link=($(xmllint --xpath "//*[name() = 'entry']/*[name() = 'link']/@href" - <<<"$content" | sed -r 's/.*href="([^"]+).*/\1/g'))
+  echo -ne "<hr><h2 class='news-site'>$4</h2>"
+  limit=$6
   for ((i=0; i<$limit; ++i)) do
     echo -ne "<h3 class='news-titles'><a href='${link[i]}'>${title[i]}</a></h3>"
   done
@@ -282,17 +352,3 @@ generator > $directory$file
 
 # la grande finale (French)
 echo -e "\n DONE!\n"
-
-# USEFUL REFERENCE:
-# Shell Naming Conventions
-# https://google.github.io/styleguide/shellguide.html#s7-naming-conventions
-
-# FEED LINKS THAT DIDN'T WORK (FIXME)
-# feed "The Hindu" "https://www.thehindu.com/feeder/default.rss"
-# feed "Aljazera" "https://www.aljazeera.com/xml/rss/all.xml"
-# feed "Xinhua" "http://www.xinhuanet.com/english/rss/chinarss.xml"
-# feed "Jornal do Comércio" "https://www.jornaldocomercio.com/_conteudo/economia/rss.xml"
-# feed "DefesaNet" "http://www.defesanet.com.br/capa/rss/"
-# feed "East-West" "https://www.ewdn.com/feed/"
-# feed "Financial Times" "https://www.ft.com/news-feed?format=rss"
-# feed "El País BR" "https://brasil.elpais.com/rss/brasil/portada.xml"

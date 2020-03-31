@@ -19,17 +19,19 @@ chmod +x *.sh && chmod +x /news_page/*.sh
 ./the_script.sh
 ```
 
+Abaixo coloquei screenshots e explicações de alguns scripts.
+
 **CLIQUE ABAIXO PARA EXPANDIR:**
 
 <details>
 
-<summary>news_page.sh</summary>
+<summary>🗗 news_page.sh</summary>
 
-## *ARQUIVO: news_page.sh*
+## _ARQUIVO: news_page.sh_
 
 Esse script extrai notícias de vários sites e cria um documento html leve e prático.
 
-O script também mostra posts do Twitter, cotação de moedas, dados metereológicos e saídas de comandos no bash.
+O script também mostra posts do Twitter, feeds do GitHub, cotação de moedas, dados metereológicos e saídas de comandos no bash.
 
 NEWS PAGE DARK THEME (rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 
@@ -47,7 +49,7 @@ Insira teus links (rss) de notícias favoritos no arquivo de configuração "**n
 ./news_page.sh -s news_settings➜Rio_de_Janeiro.sh
 ```
 
-*news_page.html* será gerado.
+_news_page.html_ será gerado.
 
 DEPENDÊNCIAS:
 
@@ -89,27 +91,35 @@ e dentro da edição insira uma nova linha como essa (com o caminho completo ao 
 0 */12 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh -s news_settings➜Pindamonhangaba.sh
 ```
 
+DICA 3:
+
+Você pode obter o feed principal do seu GitHub, para isso vá na página inicial e copie o link de onde estiver escrito "Subscribe to your news feed". E coloque no seu aquivo de configuração algo como:
+
+```text
+feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWERTYQWERTY" "8"
+```
+
+Além do feed principal tu também consegues pegar commits (entre outros) de projetos, como na imagem abaixo:
+
+![news_page_image](screenshots/screenshot-news-github.gif)
+
 </details>
 
 <details>
 
-<summary>default.sh</summary>
+<summary>🗗 default.sh</summary>
 
-## *ARQUIVO: default.sh*
+## _ARQUIVO: default.sh_
 
 Esse é um código padrão que criei para colocar em todos os scripts. Ele serve para estilizar de uma maneira fácil os textos dentro dos códigos, deixando-os limpos e legíveis. Também é útil para criar menus rapidamente e de diferentes maneiras.
 
-Uso: inclua o código do default.sh no seu script:
+Uso: importe o default.sh no início do código do seu script.
 
 ```bash
 source "default.sh"
 ```
 
-***ESTILIZAÇÃO DE TEXO***
-
-Com default.sh podemos estilizar o texto com variáveis e funções.
-
-EXEMPLOS
+**_ESTILIZAÇÃO DE TEXO_**
 
 Sem o default.sh:
 
@@ -135,13 +145,11 @@ echo -e "$bg_white$bold$red Bold Red Text on White Background "
 
 Ambos os exemplos imprimem exatamente o mesmo resultado.
 
-NOTA: *Consulte outras opções de cores e estilos dentro do default.sh.*
+NOTA: _Consulte outras opções de cores e estilos dentro do default.sh._
 
-***CRIAÇÃO DE MENUS***
+**_CRIAÇÃO DE MENUS_**
 
-Com default.sh também podemos criar menus a partir de funções com o comando ***fmenu***, ou a partir de listas com o comando ***lmenu***. Veja os exemplos abaixo:
-
-![default.sh_menu_image](screenshots/screenshot-menu.gif)
+Com default.sh também podemos criar menus a partir de funções com os comandos **_fmenu_** e **_fmenu2_**, ou a partir de listas com os comandos **_lmenu_** e **_lmenu2_**. Veja os exemplos abaixo:
 
 MENU DE FUNÇÕES
 
@@ -192,13 +200,26 @@ Neste exemplo as tuas interfaces de rede são listadas como menu:
  Nº
 ```
 
+MENUS DE LISTA E FUNÇÕES **2**
+
+**fmenu2** e **lmenu2** fazem as mesmas coisas que os anteriores, porém ambos tem suporte ao teclado.
+
+```text
+⇩ seta para baixo:                próximo item
+⇧ seta para cima:                 item anterior
+⇨ seta para direita ou espaço:    escolhe a opção
+⇦ seta para esquerda ou esc:      sai do script
+```
+
+![default.sh_menu_image](screenshots/screenshot-menu.gif)
+
 </details>
 
 <details>
 
-<summary>update_arch.sh</summary>
+<summary>🗗 update_arch.sh</summary>
 
-## *ARQUIVO: update_arch.sh*
+## _ARQUIVO: update_arch.sh_
 
 Esse script é uma ótima maneira de atualizar o Arch Linux sem que haja erros durante o processo.
 
@@ -229,9 +250,9 @@ Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV;
 
 <details>
 
-<summary>google_calendar.sh</summary>
+<summary>🗗 google_calendar.sh</summary>
 
-## *ARQUIVO: google_calendar.sh*
+## _ARQUIVO: google_calendar.sh_
 
 Esse pequeno script captura os dados da minha agenda da Google via 'gcalcli'.
 

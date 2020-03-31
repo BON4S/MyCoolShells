@@ -1,4 +1,5 @@
 # NEWS PAGE SETTINGS -----------------------------------------------------------
+# This is an example file, feel free to modify.
 
 # SAVE PLACE AND THEME STYLE
 directory=""                                                        # directory to save the html file (nothing = current)
@@ -31,45 +32,28 @@ custom_command() {
 # Usage:
 # 1 ->  feed "NEWS TITLE" "LINK"
 # 2 ->  feed "NEWS TITLE" "LINK" "NUMBER OF NEWS"     # the default news number is 6
+# or use feed2 to takes news from a website using a different format (like the GitHub atom feed)
+# feed2-2n and feed-2n is like feed2 and feed, but it shows two news items in the same block
+# and is MANDATORY to pass 6 parameters, as below:
+# feed2-2n "TITLE 1" "LINK 1" "NUMBER OF NEWS 1" \
+#          "TITLE 2" "LINK 2" "NUMBER OF NEWS 2" 
 news() {
   infos   # <-- 'infos' is a block that shows some useful information
-  feed "InfoMoney" "https://www.infomoney.com.br/feed/" "7"
-  feed "Google News BR" "https://news.google.com/rss?cf=all&pz=1&hl=pt-BR&gl=BR&ceid=BR:pt-419" "5"
+  feed2-2n "VS Code (GitHub)" "https://github.com/microsoft/vscode/commits/master.atom" "4" \
+           "MyCoolShells (last commits)" "https://github.com/BON4S/MyCoolShells/commits/master.atom" "4"
+  feed "Google News BR" "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en" "5"
   feed "Trend Topics BR" "https://trends.google.com/trends/trendingsearches/daily/rss?geo=BR" "10"
 # ----
-  feed "The Wall Street Journal" "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
-  feed "Orange County Register" "https://www.ocregister.com/news/feed/"
-  feed "CBS8" "https://feeds.feedblitz.com/cbs8/news&x=1"
-  feed "Gazeta News" "https://gazetanews.com/feed/?post_type=jm_breaking_news"
-# ----
-  feed "Times of India" "https://timesofindia.indiatimes.com/rssfeedstopstories.cms"
-  feed "TASS" "http://tass.com/rss/v2.xml"
-  feed "The Japan Times" "https://www.japantimes.co.jp/feed/topstories"
-  feed "Público (Portugal)" "http://feeds.feedburner.com/PublicoRSS"
-# ----
-  feed "Diolinux" "https://feeds.feedburner.com/Diolinux?format=xml"
-  feed "Phoronix" "https://www.phoronix.com/rss.php"
-  feed "TecMundo" "https://rss.tecmundo.com.br/feed"
-  feed "Arch Linux Brasil" "https://www.archlinux-br.org/feeds/news/"
-# ----
-  feed "Porto Imagem" "https://portoimagem.wordpress.com/feed/"
-  feed "Sociedade Militar" "https://www.sociedademilitar.com.br/wp/feed"
-  feed "Suno Notícias" "https://www.sunoresearch.com.br/noticias/feed/"
   feed "Trend Topics US" "https://trends.google.com/trends/trendingsearches/daily/rss?geo=US" "10"
-# ----
-  feed "Money Times" "https://moneytimes.com.br/feed/"
-  feed "Gizmodo BR" "https://gizmodo.uol.com.br/feed/"
-  feed "HypeScience" "https://hypescience.com/feed/"
-  feed "Folha de SP" "http://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
-# ----
-  #feed "The New York Times" "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+  feed "The Wall Street Journal" "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+  feed "The New York Times" "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+  feed "Huffpost" "https://www.huffpost.com/section/front-page/feed"
 }
 
 # TWITTER LINKS
 # Usage:
 # twitter "TWITTER TITLE" "ACCOUNT NAME"
 twitters() {
-  twitter "President of Brazil - Jair Bolsonaro" "jairbolsonaro"
-  twitter "President of United States - Donald Trump" "realDonaldTrump"
-  twitter "President of Argentina - Alberto Fernández" "alferdez"
+  twitter "Space Sushi" "SpaceSushiPic"
+  twitter "Lord Voldemort" "Lord_Voldemort7"
 }
