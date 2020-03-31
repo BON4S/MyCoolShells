@@ -11,7 +11,6 @@ top() { title "NETWORK THINGS$lred!"; }; top    # show the title
 # --- end of default start -----------------
 
 source "network_functions.sh"     # import the network functions
-connection                        # show the internet connection
 
 # MENU ITEM - close option
 Exit/menu() {
@@ -51,13 +50,18 @@ Open_netctl_profile_folder/menu() {
 
 # MENU ITEM - enable or disable a network card
 Enable_or_disable_a_network_card/menu() {
-  enable_disable_networkCard
+  enable_or_disable_network_card
 }
 
+# MENU ITEM - continuously checks the internet connection
+Beeps_when_the_internet_comes_back/menu(){
+  beeps_when_the_internet_comes_back
+}
+
+echo
 while :; do           # infinite menu loop
   echo -e "$gray "
-  fmenu               # create the network menu
+  fmenu2              # create the menu
   clear
   top
-  connection
 done

@@ -84,6 +84,46 @@ fmenu() {
   fi
 }
 
+# FUNCTION MENU 2
+# the same function menu, but with keyboard support
+# up key: previous item
+# down: next item
+# space or right: choose the option
+# q or left: quit
+fmenu2() {
+  place="$1"
+  if [ -z "$1" ]; then                              # check if any parameters have been passed
+    place="$0"
+    place="${place##*/}"                            # set the script itself as functions local
+  fi
+  menu=($(grep '/menu()' $place | cut -d'/' -f1))   # take the name of each function and put it in an array
+  cur=0
+  draw_menu() {
+    for i in "${menu[@]}"; do
+      if [[ ${menu[$cur]} == $i ]]; then
+        tput setaf 2; echo " ➜ ${i//_/ }"; tput sgr0
+      else
+        echo "   ${i//_/ }";
+      fi
+    done
+  }
+  draw_menu
+  while read -sN1 key; do                                                       # 1 char (not delimiter), silent
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}                                                        # catch multi-char
+    case "$key" in
+      q|a|''|$'\e'|$'\e[D'|$'\e0D') exit;;                                      # left: quit
+      d|e|' '|$'^['|''|$'\e[C'|$'\e0C') break;;                                 # right, space: execute
+      w|$'\e[A'|$'\e0A') ((cur > 0)) && ((cur--));;                             # up: previous item
+      s|$'\e[B'|$'\e0B') ((cur < ${#menu[@]}-1)) && ((cur++));;                 # down: next item
+    esac
+    for i in "${menu[@]}"; do tput cuu1; done && tput ed                        # redraw menu
+    draw_menu
+  done
+  echo -e "\n$lblue ❰ ${menu[$cur]//_/ } ❱$gray \n"
+  "${menu[$cur]}/menu"
+}
+
 # LIST MENU
 # easily create menus from a list
 # usage example:
@@ -112,6 +152,36 @@ lmenu() {
       *) action ;;                      # execute the user function
     esac
   fi
+}
+
+# LIST MENU 2
+# the same list menu, but with keyboard support
+lmenu2() {
+  list=($1)
+  choice=0
+  draw_menu() {
+    for i in "${list[@]}"; do
+      if [[ ${list[$choice]} == $i ]]; then
+        tput setaf 2; echo " ➜ $i"; tput sgr0
+      else
+        echo "   $i";
+      fi
+    done
+  }
+  draw_menu
+  while read -sN1 key; do                                                       # 1 char (not delimiter), silent
+    read -sN1 -t 0.0001 k1; read -sN1 -t 0.0001 k2; read -sN1 -t 0.0001 k3
+    key+=${k1}${k2}${k3}                                                        # catch multi-char
+    case "$key" in
+      q|a|''|$'\e'|$'\e[D'|$'\e0D') exit;;                                      # left: quit
+      d|e|' '|$'^['|''|$'\e[C'|$'\e0C') break;;                                 # right, space: execute
+      w|$'\e[A'|$'\e0A') ((choice > 0)) && ((choice--));;                       # up: previous item
+      s|$'\e[B'|$'\e0B') ((choice < ${#list[@]}-1)) && ((choice++));;           # down: next item
+    esac
+    for i in "${list[@]}"; do tput cuu1; done && tput ed                        # redraw menu
+    draw_menu
+  done
+  action
 }
 
 # colored line
