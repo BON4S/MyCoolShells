@@ -21,7 +21,7 @@ wifi() {
   echo -e "\n Choose a interface"
   action() {
     sudo wifi-menu "${list[choice]}"
-  }; lmenu "$(ls /sys/class/net)"
+  }; lmenu2 "$(ls /sys/class/net)"
 }
 
 # connect to my favorite internet network
@@ -38,11 +38,11 @@ remove_netctl_profile() {
     sudo rm "/etc/netctl/${list[choice]}"
     echo " DONE!"
     sleep 2
-  }; lmenu "$perfis"
+  }; lmenu2 "$perfis"
 }
 
 # enable or disable a network card
-enable_disable_network_card() {
+enable_or_disable_network_card() {
   echo -e "\n ENABLE/DISABLE A NETWORK CARD"
   echo -e "\n Choose a interface"
   action() {
@@ -52,5 +52,27 @@ enable_disable_network_card() {
       "d") sudo ifconfig "${list[choice]}" down && echo " OK!" && sleep 2 ;;
       *) echo -e "\n$lred WRONG!$gray " && sleep 2 ;;
     esac
-  }; lmenu "$(ls /sys/class/net)"
+  }; lmenu2 "$(ls /sys/class/net)"
+}
+
+# it beeps when the internet connection comes back
+beeps_when_the_internet_comes_back() {
+  amixer -D pulse sset Master 100%  # set volume to 100%
+  while :; do
+    clear
+    echo -e "\n\n$blue         CONNECTION CHECK \n$reset$gray "
+    echo -en "         ping.. "
+    wget -q --spider https://google.com
+    if [ $? -eq 0 ]; then
+      echo -e $bold$green"      CONNECTED!!"$reset$gray" \n"
+      echo -e "         alarm.. \e]11;#2b2d35"
+      mplayer -really-quiet /mnt/home2/m/sons-diversos/alarme-01.mp3
+      echo -en "\n\n\n$reset$gray     waiting 10 seconds.."
+      sleep 10
+    else
+      echo -e $bold$lred"  DISCONNECTED"$reset$gray" \n"
+      echo -en "         waiting 5 seconds.."
+      sleep 5
+    fi
+  done
 }
