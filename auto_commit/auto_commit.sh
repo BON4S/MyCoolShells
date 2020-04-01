@@ -33,7 +33,7 @@ script_folder=$(dirname "$0")
 cd $script_folder
 
 # default settings file
-settings="auto-commit-config➜default.sh"
+settings="auto_commit_config➜default.sh"
 
 # checks for settings parameter
 while [ -n "$1" ]; do
