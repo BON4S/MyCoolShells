@@ -15,7 +15,7 @@ now=$(date +"%Y.%m.%d")
 files() {
   watch "$HOME/.zshrc" "ZSH config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
   watch "$HOME/.bashrc" "BASH config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
-  watch "$HOME/.config/Code - OSS/User/settings.json" "VS Code Config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
+  watch "$HOME/.config/Code - OSS/User/settings.json" "VS Code config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
 }
 
 # ------------------------------------------------------------------------------
