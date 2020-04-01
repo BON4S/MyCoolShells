@@ -1,6 +1,6 @@
-# The first time you add a file here and run the script (./auto_commit.sh)
-# it will generate the md5, but it will not send to your repository. And the
-# second time and the next times the script will send to the repository.
+# The first time you add a file here and run the script (./auto_commit.sh) it will
+# generate the md5, but it will not send to your repository. And the second time
+# (when there are changes)  and the next times the script will send to the repository.
 # Usage: After you configure this file, run: ./auto_commit.sh
 # You must have set up SSH keys for the script does not need password.
 # SAMPLE CONFIGURATION FILE ----------------------------------------------------

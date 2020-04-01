@@ -17,7 +17,7 @@
 #
 # The first time you run the script (./auto_commit.sh) it will generate the md5,
 # but it will not send the files to the repository. And the second time and the
-# next times the script will send the files to your repository.
+# next times (when there are changes) the script will send the files to your repository.
 #
 # It is necessary to set up SSH keys for the script does not need password.
 #
@@ -72,14 +72,14 @@ check() {
   if [ "$current" != "$3" ] ; then
     if [ "$4" == "✖NULL" ]; then # commit in the same location as the file
       cd $(dirname "$1")
-      git add $1
+      git add $(basename "$1")
       git commit -m "$2"
       git push -u origin master
       cd $script_folder
     else  # copy and commit to a specific location
       cp $1 $4
       cd $4
-      git add $1
+      git add $(basename "$1")
       git commit -m "$2"
       git push -u origin master
       cd $script_folder
