@@ -107,6 +107,14 @@ aur_up() {
   finish
 }
 
+# update the pkgfile data
+pkgfile_up() {
+  line
+  echo -e "\n$bold UPDATING PKGFILE$reset$gray \n"
+  pkgfile -u
+  finish
+}
+
 # ask if you want to restart the system
 restart() {
   line
@@ -132,6 +140,7 @@ Update_all_the_system/menu() {
   flatpak_up
   snap_up
   aur_up
+  pkgfile_up
   restart
 }
 
