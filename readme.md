@@ -13,7 +13,7 @@ To use, clone the repository, give permission and run:
 ```bash
 git clone https://github.com/BON4S/MyCoolShells
 cd MyCoolShells
-chmod +x *.sh && chmod +x /news_page/*.sh
+chmod +x *.sh && chmod +x /news_page/*.sh && chmod +x /auto_commit/*.sh
 ./the_script.sh
 ```
 
@@ -100,6 +100,44 @@ feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWER
 In addition to the main feed you can also get project commits, as in the image below:
 
 ![news_page_image](screenshots/screenshot-news-github.gif)
+
+</details>
+
+<details>
+
+<summary>🗗 auto_commit.sh</summary>
+
+## _FILE: auto_commit.sh_
+
+The "auto_commit.sh" is a script that checks for changes in certain files through an md5 check. And when the change exists, the script sends the file, with a custom commit, to your repository on GitHub. I use this script to create automatic backups of [my dotfiles](https://github.com/BON4S/Dotfiles) (settings files). The script is also able to pick up files around the computer and keep an updated copy of them in a single folder. Everything in a simple and practical way.
+
+USAGE
+
+Edit the configuration file (auto_commit_config➜default.sh) and run the script:
+
+```bash
+./auto_commit.sh
+```
+
+With the "-s" parameter you can also specify a customized configuration file:
+
+```bash
+./auto_commit.sh -s auto_commit_config➜mysettings.sh
+```
+
+Important: It is necessary to create an [SSH Key from GitHub](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on the machine so the script doesn't need a password.
+
+SCHEDULE
+
+Schedule the script to run every 12 hours. To do this, edit your distro's cron with the commands below:
+
+```bash
+# to open the cron edition:
+export VISUAL=nano; crontab -e
+
+# and insert a line like this:
+0 */12 * * * /home/your_username/scripts_folder/auto_commit/auto_commit.sh
+```
 
 </details>
 
@@ -240,9 +278,10 @@ When we run the script it does the following sequence:
 - Update the Flatpak;
 - Update the Snap;
 - Update the Arch User Repository (AUR);
+- Update the pkgfile data;
 - And finally, ask if you want to restart the system.
 
-Dependencies: newsboat; ClamAV; unofficial ClamAV signatures script; Yay; reflector; Flatpak; Snap.
+Dependencies: newsboat; ClamAV; unofficial ClamAV signatures script; Yay; reflector; Flatpak; Snap; pkgfile.
 
 </details>
 

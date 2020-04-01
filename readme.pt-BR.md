@@ -15,7 +15,7 @@ Basta clonar o repositório, dar permissão e executar:
 ```bash
 git clone https://github.com/BON4S/MyCoolShells
 cd MyCoolShells
-chmod +x *.sh && chmod +x /news_page/*.sh
+chmod +x *.sh && chmod +x /news_page/*.sh && chmod +x /auto_commit/*.sh
 ./the_script.sh
 ```
 
@@ -102,6 +102,44 @@ feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWER
 Além do feed principal tu também consegues pegar commits (entre outros) de projetos, como na imagem abaixo:
 
 ![news_page_image](screenshots/screenshot-news-github.gif)
+
+</details>
+
+<details>
+
+<summary>🗗 auto_commit.sh</summary>
+
+## _ARQUIVO: auto_commit.sh_
+
+O "auto_commit.sh" é um script que checa por modificações em determinados arquivos através de uma comparação de md5. E quando a alteração existe o script envia, com um commit personalizado, o arquivo para o seu repositório no GitHub. Uso esse script para fazer backups automáticos dos [meus dotfiles](https://github.com/BON4S/Dotfiles) (arquivos de configurações). O script também é capaz de pegar arquivos espalhados pelo computador e manter uma cópia atualizada deles em uma única pasta. Tudo de uma forma simples e prática.
+
+USO
+
+Edite o arquivo de configuração (auto_commit_config➜default.sh) e rode o script:
+
+```bash
+./auto_commit.sh
+```
+
+Com o parametro "-s" tu também podes especificar um arquivo de configuração personalizado:
+
+```bash
+./auto_commit.sh -s auto_commit_config➜mysettings.sh
+```
+
+Importante: É necessário criar um [SSH Key do GitHub](https://help.github.com/pt/enterprise/2.17/user/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) na maquina para que o script não precise de senha.
+
+AGENDAMENTO
+
+Agende o script para rodar a cada 12 horas. Para isso, edite o cron da sua distro com os comandos abaixo:
+
+```bash
+# para abrir a edição do cron:
+export VISUAL=nano; crontab -e
+
+# e insira uma linha parecida com essa na edição:
+0 */12 * * * /home/your_username/scripts_folder/auto_commit/auto_commit.sh
+```
 
 </details>
 
@@ -242,9 +280,10 @@ Ao executarmos o script, o mesmo segue a seguinte sequência:
 - Atualiza o Flatpak;
 - Atualiza o Snap;
 - Atualiza o Arch User Repository (AUR);
+- Atualiza o pkgfile data;
 - E, finalmente, pergunta se tu desejas reiniciar o sistema.
 
-Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; Yay; reflector; Flatpak; Snap.
+Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; Yay; reflector; Flatpak; Snap; pkgfile.
 
 </details>
 
