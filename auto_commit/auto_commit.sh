@@ -86,7 +86,11 @@ check() {
     fi
   fi
 }
-source md5.sh # it imports 'md5.sh' and calls the function 'check'
+if [ -f "$script_folder/md5.sh" ]; then
+    source md5.sh # it imports 'md5.sh' and calls the function 'check'
+else 
+    touch $script_folder/md5.sh
+fi
 
 # this is to get and print the md5 of the monitored files
 watch() {
