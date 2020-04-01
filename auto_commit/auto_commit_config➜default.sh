@@ -13,8 +13,8 @@ now=$(date +"%Y.%m.%d")
 # then no argument must be passed (the 3rd argument).
 # ATTENTION! Commits must be a maximum of 50 characters.
 files() {
-  watch "$HOME/.zshrc" "ZSH Config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
-  watch "$HOME/.bashrc" "BASH Config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
+  watch "$HOME/.zshrc" "ZSH config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
+  watch "$HOME/.bashrc" "BASH config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
   watch "$HOME/.config/Code - OSS/User/settings.json" "VS Code Config ⇿ $now auto backup" "/mnt/home2/auto-dotfiles"
 }
 
