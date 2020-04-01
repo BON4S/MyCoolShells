@@ -29,7 +29,7 @@
 #-------------------------------------------------------------------------------
 
 # goes to script folder
-script_folder=$(dirname "$0")
+script_folder="$(pwd)"
 cd $script_folder
 
 # default settings file
@@ -71,18 +71,18 @@ check() {
   current=$(md5sum "$1" | cut -d' ' -f1)
   if [ "$current" != "$3" ] ; then
     if [ "$4" == "✖NULL" ]; then # commit in the same location as the file
-      cd $(dirname "$1")
+      cd "$(dirname "$1")"
       git add $(basename "$1")
       git commit -m "$2"
       git push -u origin master
-      cd $script_folder
+      cd "$script_folder"
     else  # copy and commit to a specific location
-      cp $1 $4
-      cd $4
+      cp "$1" "$4"
+      cd "$4"
       git add $(basename "$1")
       git commit -m "$2"
       git push -u origin master
-      cd $script_folder
+      cd "$script_folder"
     fi
   fi
 }
@@ -111,4 +111,4 @@ watch() {
 md5() {
   files
 }
-md5 > md5.sh
+md5 > "$script_folder/md5.sh"
