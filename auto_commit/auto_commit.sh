@@ -29,8 +29,8 @@
 #-------------------------------------------------------------------------------
 
 # goes to script folder
-script_folder="$(pwd)"
-cd $script_folder
+script_folder="$(dirname "$0")"
+cd "$script_folder"
 
 # default settings file
 settings="auto_commit_config➜default.sh"
