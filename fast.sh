@@ -108,7 +108,7 @@ Emulate_something/menu() {
 
 # MENU ITEM - weather in the current location
 Weather_forecast/menu() {
-  nohup xfce4-terminal --fullscreen -H -e "curl https://wttr.in/"
+  nohup xfce4-terminal --fullscreen -H -e "curl 'https://wttr.in/?Fq&lang=pt-br'"
   exit
 }
 

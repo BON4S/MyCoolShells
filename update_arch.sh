@@ -77,7 +77,7 @@ keys_up() {
 repository_up() {
   line
   echo -e "\n$bold UPDATING OFFICIAL REPOSITORY$reset$gray \n"
-  yay -Syu --repo --noconfirm --cleanafter
+  yay -Syu --repo --noconfirm --cleanafter --overwrite '/usr/lib/python3.8/site-packages/*'
   finish
 }
 
@@ -103,7 +103,7 @@ snap_up() {
 aur_up() {
   line
   echo -e "\n$bold UPDATING AUR$reset$gray \n"
-  yay -Syu --aur --noconfirm --cleanafter
+  yay -Syu --aur --noconfirm --cleanafter --overwrite '/usr/lib/python3.8/site-packages/*'
   finish
 }
 
