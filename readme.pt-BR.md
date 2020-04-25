@@ -31,7 +31,7 @@ Abaixo coloquei screenshots e explicações de alguns scripts.
 
 Esse script extrai notícias de vários sites e cria um documento html leve e prático.
 
-O script também mostra posts do Twitter, feeds do GitHub, cotação de moedas, dados metereológicos e saídas de comandos no bash.
+O script também mostra posts do Twitter, feeds do GitHub, feeds do YouTube, cotação de moedas, dados metereológicos e saídas de comandos no bash.
 
 NEWS PAGE DARK THEME (rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 

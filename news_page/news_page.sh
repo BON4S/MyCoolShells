@@ -32,7 +32,7 @@
 #     0 */12 * * * /home/your_username/scripts_folder/news_page/news_page.sh
 #
 # FIXME:
-# 1 - A few pages are not loading (commented '#' in the code).
+# - Some feed links do not load.
 
 # goes to script folder
 cd $(dirname "$0")
@@ -163,7 +163,7 @@ infos() {
       </a>
     </h3>
   "
-  custom_command
+  custom-command
   echo "
     <h2 class='news-site'>$city_name</h2>
     <h3 class='news-titles'>
@@ -188,12 +188,54 @@ infos() {
   "
 }
 
+youtube() {
+  if [ "$1" == "channel" ]; then
+    feed2 "$2" "https://www.youtube.com/feeds/videos.xml?channel_id=$3"
+  elif [ "$1" == "queries" ] || [ "$1" == "topics" ]; then
+    if [ "$1" == "queries" ]; then
+      trends="RELATED_QUERIES"
+      name="Queries"
+    else
+      trends="RELATED_TOPICS"
+      name="Topics"
+    fi
+    if [ -z "$2" ]; then
+      height=280
+    else
+      height=$2
+    fi
+    echo "
+      <style>.youtube-topics iframe {height: ${height}px}</style>
+      <div class='news youtube-topics'>
+        <h2 class='news-site'>YouTube ${name}</h2>
+        <script type='text/javascript' src='https://ssl.gstatic.com/trends_nrtr/2152_RC04/embed_loader.js'></script>
+        <script type='text/javascript'>
+          trends.embed.renderExploreWidget('${trends}', {'comparisonItem':[{'geo':'','time':'today 12-m'}],'category':0,'property':'youtube'}, {'exploreQuery':'gprop=youtube&date=today 12-m','guestPath':'https://trends.google.com:443/trends/embed/'});
+        </script>
+      </div>
+    "
+  else
+    echo "
+      <div class='news'>
+        <h1>ATTENTION!</h1>
+        <p>You passed the wrong parameter!</p>
+        <p>Parameter passed: $1</p>
+        <p>Accepted parameters:
+          <br><b>→ channel</b>
+          <br><b>→ queries</b>
+          <br><b>→ topics</b>
+        </p>
+      </div>
+    "
+  fi
+}
+
 # get tweets
 twitter() {
   url="https://twitter.com/$2"
   content=$(wget --timeout=5 --tries=2 -O- ${url})
   echo -ne "<div class='tweets'><h2><a href='$url'>$1</a></h2>"
-  echo -ne "<div class='tweets-box brightness'>"
+  echo -ne "<div class='tweets-box'>"
   echo -e $content | pup 'div.tweet'
   echo -ne"</div></div>"
 }
@@ -225,6 +267,7 @@ top_html="
 
 # html bottom code
 bottom_html="
+        <div id='end'></div>
       </div>
     </body>
   </html>
@@ -257,8 +300,12 @@ full_screen="
 # adjusts the brightness of news headlines
 news_brightness="
   function newsBrightness() {
-    var element = document.querySelectorAll('.news-titles');
-    [].forEach.call(element, function(e) {
+    var element1 = document.querySelectorAll('.news-titles');
+    var element2 = document.querySelectorAll('.tweets-box');
+    [].forEach.call(element1, function(e) {
+      e.classList.toggle('brightness');
+    });
+    [].forEach.call(element2, function(e) {
       e.classList.toggle('brightness');
     });
   }
@@ -279,9 +326,9 @@ header="
         </b></a>
       </span>
       <span class='control'>
-        <a href='#top' onclick='newsBrightness()'>☀</a>
-        <a href='#top' onclick='fullScreen()'>⤢</a>
-        <a href='#line1'>↓</a>
+        <a href='#' onclick='newsBrightness()'>☀</a>
+        <a href='#' onclick='fullScreen()'>⤢</a>
+        <a href='#end'>↓</a>
       </span>
     </div>
   </div> 
@@ -306,25 +353,39 @@ twitter_topline_controls="
   }
 "
 
-# twitter top line
-twitter_top_line="
-  <hr id='line1'>
-  <div id='twitter-line' class='flex'>
-    <div class='left'>
+start-section() {
+  echo "
+    <hr id='line-$1'>
+    <div class='section'>
+      <div class='flex'>
+        <div class='left'>
+        </div>
+        <div class='right'>
+          <span class='control brightness'>
+            <a href='#' onclick='newsBrightness()'>☀</a>
+            <a href='#' alt='Full Screen' onclick='fullScreen()'>⤢</a>
+            <a href='#top'>↑</a>
+          </span>
+          <a href='#line-$1' class='link-cool' onclick='section$1ShowHide()'>↙ $1 Show/Hide</a>
+        </div>
+      </div>
+      <div class='section-$1 $2'>
+  "
+}
+
+end-section() {
+  echo "
+      </div>
+      <script>
+        function section$1ShowHide() {
+          var element = document.querySelector('.section-$1');
+          element.classList.toggle('hide');
+        }
+      </script>
     </div>
-    <div class='right'>
-      <span class='control'>
-        <a href='#line1' onclick='twitterBrightness()'>☀</a>
-        <a href='#line1' alt='Full Screen' onclick='fullScreen()'>⤢</a>
-        <a href='#top'>↑</a>
-      </span>
-      <a href='#line1' onclick='twitterShowHide()'>Twitter Show/Hide</a>
-    </div>
-    <script>
-      $twitter_topline_controls
-    </script>
-  </div>
-"
+    <p><br></p>
+  "
+}
 
 # news page generator code
 generator() {
@@ -332,16 +393,8 @@ generator() {
     $top_html
     $header
   "
-  # news section
-  news
-  # twitter section
+  news-page
   echo "
-    $twitter_top_line
-    <div id='the-twitter' class='$twitter_hide'>
-  "
-  twitters
-  echo "
-    </div>
     $bottom_html
   " 
 };

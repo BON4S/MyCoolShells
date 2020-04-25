@@ -28,7 +28,7 @@ p, h2, h2 a, h3, h3 a, .flex, .flex a, .tweets-box p a, a.pretty-link, .js-pinne
 .PlayableMedia-attribution, .Tombstone {
   font-family: 'SF Pro Text', 'Graphik', 'Helvetica Neue', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 17px;
   letter-spacing: 0.5px;
   text-decoration: none;
   outline: none;
@@ -78,6 +78,14 @@ button {
   font-size: 22px;
   font-weight: bold;
   vertical-align: middle;
+}
+
+.link-cool {
+  border-bottom: 2px dashed;
+  border-left: 2px dashed;
+  border-right: 2px dashed;
+  padding: 9px 10px;
+  opacity: 0.5;
 }
 
 hr {

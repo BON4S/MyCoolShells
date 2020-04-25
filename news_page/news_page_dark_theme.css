@@ -71,6 +71,6 @@ div.tweet {
   color: #4a4a4a;
 }
 
-.top-line, #twitter-line, hr {
-  opacity: 0.4;
+.top-line, hr, .control {
+  opacity: 0.6;
 }

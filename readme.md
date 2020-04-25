@@ -29,7 +29,7 @@ Below I put screenshots and explanation of some scripts.
 
 This script extracts news from various websites and creates a lightweight and practical html document.
 
-The script also shows Twitter posts, GitHub feeds, currency quotes, weather and custom shell script outputs.
+The script also shows Twitter posts, GitHub feeds, YouTube feeds, currency quotes, weather and custom shell script outputs.
 
 NEWS PAGE DARK THEME (running on [my Firefox theme](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
 
