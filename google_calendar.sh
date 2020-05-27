@@ -2,37 +2,32 @@
 # SCRIPT: google_calendar.sh
 # AUTHOR: BON4S https://github.com/BON4S
 #
-# DESCRIPTION:
-# This little script captures data from my Google Calendar via gcalcli.
-# I use it to print my appointments on desktop (using Conky).
+# ABOUT:
+# This small script captures data from Google Calendar via
+# gcalcli and organizes and displays it in a new format.
+# This can be used, for example, to print the calendar
+# on the desktop using 'Conky'.
 
 gcalcli-run() {
-  initialdate=$(date +%Y-%m-%d)
-  enddate=$(date +%Y-%m-%d -d "+ 15 day")   # stipulates the last 15 days for data capture
-  gcalcli --nocolor agenda $initialdate $enddate
+  start_date=$(date +%Y-%m-%d)
+  end_date=$(date +%Y-%m-%d -d "+ 14 day")   # stipulates the last 14 days for data capture
+  gcalcli --nocolor agenda $start_date $end_date
 }
 
-IFS=$'\n'; events=($(gcalcli-run))                    # capture the Google Calendar data
-for n in "${!events[@]}"; do
-  day=$(echo -ne ${events[n]} | cut -c 9-10)          # separate the day from captured
-  month=$(echo -ne ${events[n]} | cut -c 5-7)         # month
-  week=$(echo -ne ${events[n]} | cut -c -3)           # week
-  time=$(echo -ne ${events[n]} | cut -c 13-17)        # time
-  if [ "s " = "$(echo $day)" ]; then                  # checks if there is something on the agenda
-    echo "YEAH!  (^_^)"
+IFS=$'\n'; appointment_data=($(gcalcli-run)) # capture the Google Calendar data
+
+for n in "${!appointment_data[@]}"; do
+  month=$(echo -ne ${appointment_data[n]} | cut -d" " -f2)
+  week=$(echo -ne ${appointment_data[n]} | cut -d" " -f1)
+  day=$(echo -ne ${appointment_data[n]} | cut -d" " -f3)
+  title_and_time=$(echo -ne ${appointment_data[n]} | cut -c12- | xargs echo -n)
+
+  if [ "Found..." = "$(echo $day)" ]; then
     echo "No appointments!"
-  elif [[ $time = *[!\ ]* ]]; then                    # check if there is a set time
-    time=$(echo -ne " - $time")
-    description=$(echo -ne ${events[n]} | cut -c28-)  # appointment title
-    case $day in
-      ''|*[!0-9]*) echo -e " on the same day$time\n "$description"\n " ;;
-      *) echo -e " "$day"/"$month", "$week$time"\n "$description"\n " ;;
-    esac
+  elif [ -z "$day" ]; then
+    echo -e " - "$title_and_time
   else
-    description=$(echo -ne ${events[n]} | cut -c20-)
-    case $day in
-      ''|*[!0-9]*) echo -e " on the same day\n "$description"\n " ;;
-      *) echo -e " "$day"/"$month", "$week"\n "$description"\n " ;;
-    esac
+    echo -e "\n "$day"/"$month", "$week
+    echo -e " - "$title_and_time
   fi
 done
