@@ -169,7 +169,7 @@ Update_only_the_AUR/menu() {
 echo
 while :; do           # infinite menu loop
   echo -e "$gray "
-  fmenu               # create the network menu
+  fmenu2              # create the network menu
   clear
   top
 done

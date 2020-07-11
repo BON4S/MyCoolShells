@@ -4,9 +4,6 @@
 # DESCRIPTION: Basic code to use in all shell scripts.
 # USAGE: source "default.sh"
 
-# set terminal initial background color
-printf %b "\e]11;#2b2d35\a"
-
 # text colors (foreground)
 black="\e[30m"  &&  white="\e[97m"
 red="\e[31m"    &&  lred="\e[91m"
@@ -46,40 +43,52 @@ reset="\e[0m"
 # usage example:  title "TITLE NAME"
 title() {
   file_name="${0##*/}"
-  echo -ne $bold$gray" $1 "$dim$gray$reverse" ${file_name^^} "$reset$gray" "
+  echo -ne "$bold$gray $1 $dim$gray$reverse ${file_name^^} $reset"
+}
+title2() {
+  echo -ne "$bold$gray $1$reset"
 }
 
 # FUNCTION MENU
-# easily create menus from functions      <-- really cool :o)
-# usage example:
+# easily create menus from functions
+# simple usage example:
 #   menu_item_1/menu() {                  <-- "/menu" is required
 #     command
 #   }
 #   fmenu
+# another usage way:
+#   menu_item_1/menuABCDE() {
+#     command
+#   }
+#   fmenu "." "menuABCDE"
 fmenu() {
-  place="$1"
-  if [ -z "$1" ]; then                              # check if any parameters have been passed
+  place="$0"
+  indicator="menu"
+  if [ ! -z "$2" ]; then
     place="$0"
-    place="${place##*/}"                            # set the script itself as functions local
+    [ $1 == "." ] && place="$0" || place="$1"
+    indicator="$2"
+  elif [ ! -z "$1" ]; then
+    [ $1 == "." ] && place="$0" || place="$1"
   fi
-  menu=($(grep '/menu()' $place | cut -d'/' -f1))   # take the name of each function and put it in an array
+  menu=($(grep "/$indicator()" "$place" | cut -d'/' -f1))
   for n in "${!menu[@]}"; do
     num="($n+1)"
-    echo -e " "$((num))." ${menu[n]//_/ }"          # replace underline with space and print the menu
+    echo -e " "$((num))." ${menu[n]//_/ }"
   done
   error() {
-    echo -e "$lred MENU NUMBER!$gray " && sleep 2
+    echo -e "$lred MENU NUMBER!$reset " && sleep 2
   }
   echo
   read -p ' Nº ' opt
   o="($opt-1)"
-  if [ -z "${menu[o]}" ]; then      # check if the typed is a nonexistent number
+  if [ -z "${menu[o]}" ]; then
     error
   else
     case $opt in
-      ''|*[!0-9]*) error ;;         # check if the typed is a number
-      0) error ;;                   # check if the typed is zero
-      *) "${menu[o]}/menu" ;;       # execute the function chosen by the user
+      ''|*[!0-9]*) error ;;
+      0) error ;;
+      *) "${menu[o]}/$indicator" ;;
     esac
   fi
 }
@@ -91,12 +100,16 @@ fmenu() {
 # space or right: choose the option
 # q or left: quit
 fmenu2() {
-  place="$1"
-  if [ -z "$1" ]; then                              # check if any parameters have been passed
+  place="$0"
+  indicator="menu"
+  if [ ! -z "$2" ]; then
     place="$0"
-    place="${place##*/}"                            # set the script itself as functions local
+    [ $1 == "." ] && place="$0" || place="$1"
+    indicator="$2"
+  elif [ ! -z "$1" ]; then
+    [ $1 == "." ] && place="$0" || place="$1"
   fi
-  menu=($(grep '/menu()' $place | cut -d'/' -f1))   # take the name of each function and put it in an array
+  menu=($(grep "/$indicator()" "$place" | cut -d'/' -f1))
   cur=0
   draw_menu() {
     for i in "${menu[@]}"; do
@@ -120,8 +133,8 @@ fmenu2() {
     for i in "${menu[@]}"; do tput cuu1; done && tput ed                        # redraw menu
     draw_menu
   done
-  echo -e "\n$lblue ❰ ${menu[$cur]//_/ } ❱$gray \n"
-  "${menu[$cur]}/menu"
+  echo -e "\n$lblue ❰ ${menu[$cur]//_/ } ❱$reset \n"
+  "${menu[$cur]}/$indicator"
 }
 
 # LIST MENU
@@ -137,7 +150,7 @@ lmenu() {
     echo -e " "$((num))." ${list[n]}"   # print the menu
   done
   error() {
-    echo -e "$lred MENU NUMBER!$gray"
+    echo -e "$lred MENU NUMBER!$reset"
     sleep 2
   }
   echo
@@ -184,8 +197,8 @@ lmenu2() {
   action
 }
 
-# colored line
-line() {          # lolcat -> the best linux program after 'cowsay'
+# colored line :o)
+line() {
   echo "================================================" | lolcat
 }
 
@@ -195,7 +208,7 @@ line() {          # lolcat -> the best linux program after 'cowsay'
 # can also print the terminal name with: terminal "name"
 #                                    or: echo $the_terminal
 terminal() {
-  terms=(xfce4-terminal gnome-terminal konsole xterm)   # terminal list
+  terms=(xfce4-terminal gnome-terminal konsole alacritty xterm)   # terminal list
   for t in ${terms[*]}; do
     if [ $(command -v $t) ]; then     # search for a terminal
       the_term=$t                     #
