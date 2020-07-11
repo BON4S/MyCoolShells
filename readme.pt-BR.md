@@ -53,15 +53,7 @@ _news_page.html_ será gerado.
 
 DEPENDÊNCIAS:
 
-- Para usar a função de extrair posts do Twitter é necessário instalar o [pup](https://github.com/ericchiang/pup) (HTML parser).
-
-```bash
-# Usuário do Arch (yay):
-yay -S pup
-
-# Usuário de outra distro: Faça o download do executável zipado no link abaixo e descompacte-o na pasta "/bin".
-# https://github.com/EricChiang/pup/releases/tag/v0.4.0
-```
+- Para usar a função de extrair posts do Twitter é necessário instalar o [jq](https://stedolan.github.io/jq/) (Json parser).
 
 - Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
 

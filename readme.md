@@ -1,7 +1,5 @@
 #
 
-ENGLISH README - _English is not my first language, so if you see something wrong please correct me._
-
 You can also read this in another language: [Portuguese](readme.pt-BR.md)
 
 ## My Cool Shells
@@ -51,15 +49,7 @@ _news_page.html_ will be generated.
 
 DEPENDENCIES:
 
-- To use the Twitter function it is necessary to install: [pup](https://github.com/ericchiang/pup) (a HTML parser).
-
-```bash
-# Arch users (yay):
-yay -S pup
-
-# Users from other distros: Download the zipped executable from the link below and unzip it to the '/bin' folder.
-# https://github.com/EricChiang/pup/releases/tag/v0.4.0
-```
+- To show Tweets it is necessary to install: [jq](https://stedolan.github.io/jq/) (a Json parser).
 
 - To use the currency function it is necessary to install: [weather](http://fungi.yuggoth.org/weather/)
 

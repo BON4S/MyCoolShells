@@ -19,6 +19,9 @@ currency_link="https://www.google.com/search?q=1+dollar+to+real"    # useful lin
 currency_conversion="USD BRL"                                       # choose two: USD BRL EUR CAD HKD ISK PHP DKK HUF CZK AUD RON SEK IDR INR RUB HRK 
 # --                                                                #             THB CHF SGD PLN BGN TRY CNY NOK NZD ZAR MXN ILS GBP KRW MYR JPY
 
+# TWITTER  - get your 'bearer token' on: https://developer.twitter.com/
+twitter_bearer_token="##########################"
+
 # RUN A CUSTOMIZED COMMAND INSIDE THE 'INFOS' BLOCK:
 custom-command() {
   echo "<hr><h2>Disk Space</h2><pre class='news-titles'>"
@@ -38,16 +41,13 @@ news-page() {
   feed "The Wall Street Journal" "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
   feed "The New York Times" "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
   feed "Phoronix" "https://www.phoronix.com/rss.php"
-#---
-  start-section "Twitter"
-  twitter "Space Sushi" "SpaceSushiPic"
-  twitter "Lord Voldemort" "Lord_Voldemort7"
-  end-section "Twitter"
+#--- 
+  # start-section "Twitter"
+  # twitter "BonasRodrigo"
+  # end-section "Twitter"
 #---
   start-section "YouTube"
   youtube "channel" "AdamDiddy (YouTube)" "UC5LDMfoTZ7UOgr_ERHd-ltQ"
-  # youtube "queries"
-  # youtube "topics"
   end-section "YouTube"
 #---
 }
@@ -68,11 +68,9 @@ news-page() {
 #            "TITLE 2" "LINK 2" "NUMBER OF NEWS 2" 
 # 
 # ⚫ Twitter usage:
-# ➞ twitter "TWITTER TITLE" "ACCOUNT NAME"
+# ➞ twitter "ACCOUNT_NAME"
 #
 # ⚫ YouTube usage:
-# ➞ youtube "queries"      # this is a embedded YouTube trends - queries
-# ➞ youtube "topics"       # this is a embedded YouTube trends - topics
 # ➞ youtube "channel" "TITLE" "CHANNEL ID"
 # Link to get a YouTube channel id: https://commentpicker.com/youtube-channel-id.php
 #

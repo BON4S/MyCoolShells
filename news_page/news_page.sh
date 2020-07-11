@@ -15,9 +15,8 @@
 # YOU MUST EDIT THE FILE: news_settings➜default.sh
 #
 # DEPENDENCIES:
-# 1 - To use the Twitter function it is necessary to install: pup (a HTML parser).
-#     https://github.com/ericchiang/pup
-#     Arch users (yay): yay -S pup
+# 1 - To show Tweets it is necessary to install: jq (a Json parser).
+#     https://stedolan.github.io/jq/
 # 2 - And to the Weather function it is necessery to install: weather
 #     http://fungi.yuggoth.org/weather/
 #     Arch users (yay): yay -S weather
@@ -31,13 +30,11 @@
 #     And inserting a new line like this:
 #     0 */12 * * * /home/your_username/scripts_folder/news_page/news_page.sh
 #
-# FIXME:
-# - Some feed links do not load.
 
 # goes to script folder
 cd $(dirname "$0")
 
-# deafault settings file
+# default settings file
 settings="news_settings➜default.sh"
 
 # checks for settings parameter
@@ -232,12 +229,47 @@ youtube() {
 
 # get tweets
 twitter() {
-  url="https://twitter.com/$2"
-  content=$(wget --timeout=5 --tries=2 -O- ${url})
-  echo -ne "<div class='tweets'><h2><a href='$url'>$1</a></h2>"
-  echo -ne "<div class='tweets-box'>"
-  echo -e $content | pup 'div.tweet'
-  echo -ne"</div></div>"
+  if [ -z "$2" ]; then
+    limit=6
+  else
+    limit=$2
+  fi
+
+  tweets=$(curl -X GET -H "Authorization: Bearer $twitter_bearer_token" \
+    "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=$1&count=$limit"  > $directory/tweets.json)
+  
+  file_tweets_number=$(jq -r '. | length' $directory'tweets.json') 
+  
+  profile_image_url=$(jq -r .[0].user.profile_image_url_https $directory'tweets.json')
+  user=$(jq -r .[0].user.name $directory'tweets.json')
+  followers_count=$(jq -r .[0].user.followers_count $directory'tweets.json')
+
+  echo -ne "<div class='tweets'>
+    <div class='twitter-profile'>
+      <div>
+        <a href='https://twitter.com/$1'><img src="$profile_image_url" /></a>
+      </div>
+      <div>
+        <h2><a href='https://twitter.com/$1'>$user</a></h2>
+        <h3><a href='https://twitter.com/$1'>@$1</a></h3>
+        <h3>$followers_count followers</h3>
+      </div>
+    </div>
+    <div class='tweets-box'>
+  "
+
+  for ((i=0; i<$file_tweets_number; ++i)) do
+    tweet_text=$(jq -r .[$i].text $directory'tweets.json')
+    tweet_id=$(jq -r .[$i].id_str $directory'tweets.json')
+    echo -ne "<p><a href='https://twitter.com/BonasRodrigo/status/$tweet_id'>$tweet_text</a></p>"
+  done
+
+  echo -ne "
+    </div>
+  </div>
+  "
+
+  rm -rf $directory'tweets.json'
 }
 
 # this takes the value of one currency and converts it to another currency
