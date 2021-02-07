@@ -1,189 +1,67 @@
 #
 
-README EM PORTUGUÊS
-
-You can also read this in another language: [English](readme.md)
+_You can also read this in another language: [English](readme.md)_
 
 ## My Cool Shells
 
-Coloquei aqui alguns scripts shell que criei e costumo utilizar.
-
-Sinta-se livre para modificar, melhorar e usar como desejar.
-
-Basta clonar o repositório, dar permissão e executar:
+> Coloquei aqui alguns scripts de shell que criei. Para utilizá-los, siga os passos abaixos.
 
 ```bash
+# PASSO 1
+# CLONE O REPOSITÓRIO:
 git clone https://github.com/BON4S/MyCoolShells
+
+# PASSO 2
+# DÊ PERMISSÃO DE EXECUÇÃO AOS SCRIPTS:
 cd MyCoolShells
 chmod +x *.sh && chmod +x /news_page/*.sh && chmod +x /auto_commit/*.sh
+
+# PASSO 3
+# EXECUTE O SCRIPT QUE DESEJARES:
 ./the_script.sh
 ```
 
-Abaixo coloquei screenshots e explicações de alguns scripts.
+### SCRIPTS:
 
-**CLIQUE ABAIXO PARA EXPANDIR:**
-
-<details>
-
-<summary>🗗 news_page.sh</summary>
-
-## _ARQUIVO: news_page.sh_
-
-Esse script extrai notícias de vários sites e cria um documento html leve e prático.
-
-O script também mostra posts do Twitter, feeds do GitHub, feeds do YouTube, cotação de moedas, dados metereológicos e saídas de comandos no bash.
-
-NEWS PAGE DARK THEME (rodando no [meu tema do Firefox](https://addons.mozilla.org/en-US/firefox/addon/focus-and-darkness/))
-
-![news_page_image](screenshots/screenshot-news-dark.gif)
-
-USO:
-
-Insira teus links (rss) de notícias favoritos no arquivo de configuração "**news_settings➜default.sh**" e rode o script. Tu podes rodar o script sem parâmetros, ou especificar um arquivo de configuração personalizado, assim como nos exemplos abaixo:
-
-```bash
-# Exemplo sem parâmetros:
-./news_page.sh
-
-# Exemplo indicando um arquivo de configuração:
-./news_page.sh -s news_settings➜Rio_de_Janeiro.sh
-```
-
-_news_page.html_ será gerado.
-
-DEPENDÊNCIAS:
-
-- Para usar a função de extrair posts do Twitter é necessário instalar o [jq](https://stedolan.github.io/jq/) (Json parser).
-
-- Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
-
-```bash
-# Usuário do Arch (yay):
-yay -S weather
-
-# Usuário do Debian ou Ubuntu:
-sudo apt-get install weather-util
-```
-
-DICA 1:
-
-Se tu usas o Firefox instale a minha extensão para pegar links de feed facilmente: [Kill and More](https://github.com/BON4S/KillAndMore)
-
-DICA 2:
-
-Para manter a página atualizada, você pode agendar o script para ser executado a cada 12 horas, basta editar o 'cron' com o comando:
-
-```bash
-export VISUAL=nano; crontab -e
-```
-
-e dentro da edição insira uma nova linha como essa (com o caminho completo ao script):
-
-```txt
-0 */12 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh -s news_settings➜Pindamonhangaba.sh
-```
-
-DICA 3:
-
-Você pode obter o feed principal do seu GitHub, para isso vá na página inicial e copie o link de onde estiver escrito "Subscribe to your news feed". E coloque no seu aquivo de configuração algo como:
-
-```text
-feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWERTYQWERTY" "8"
-```
-
-Além do feed principal tu também consegues pegar commits (entre outros) de projetos, como na imagem abaixo:
-
-![news_page_image](screenshots/screenshot-news-github.gif)
-
-</details>
-
-<details>
-
-<summary>🗗 auto_commit.sh</summary>
-
-## _ARQUIVO: auto_commit.sh_
-
-O "auto_commit.sh" é um script que checa por modificações em determinados arquivos através de uma comparação de md5. E quando a alteração existe o script envia, com um commit personalizado, o arquivo para o seu repositório no GitHub. Uso esse script para fazer backups automáticos dos [meus dotfiles](https://github.com/BON4S/Dotfiles) (arquivos de configurações). O script também é capaz de pegar arquivos espalhados pelo computador e manter uma cópia atualizada deles em uma única pasta. Tudo de uma forma simples e prática.
-
-USO
-
-Edite o arquivo de configuração (auto_commit_config➜default.sh) e rode o script:
-
-```bash
-./auto_commit.sh
-```
-
-Com o parametro "-s" tu também podes especificar um arquivo de configuração personalizado:
-
-```bash
-./auto_commit.sh -s auto_commit_config➜mysettings.sh
-```
-
-Importante: É necessário criar um [SSH Key do GitHub](https://help.github.com/pt/enterprise/2.17/user/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) na maquina para que o script não precise de senha.
-
-AGENDAMENTO
-
-Agende o script para rodar a cada 12 horas. Para isso, edite o cron da sua distro com os comandos abaixo:
-
-```bash
-# para abrir a edição do cron:
-export VISUAL=nano; crontab -e
-
-# e insira uma linha parecida com essa na edição:
-0 */12 * * * /home/your_username/scripts_folder/auto_commit/auto_commit.sh
-```
-
-</details>
+> Abaixo coloquei explicações e imagens de alguns scripts. **CLIQUE PARA EXPANDIR**
 
 <details>
 
 <summary>🗗 default.sh</summary>
 
-## _ARQUIVO: default.sh_
+## _🙼 default.sh_
 
-Esse é um código padrão que criei para colocar em todos os scripts. Ele serve para estilizar de uma maneira fácil os textos dentro dos códigos, deixando-os limpos e legíveis. Também é útil para criar menus rapidamente e de diferentes maneiras.
-
-Uso: importe o default.sh no início do código do seu script.
+Este é um script que criei para ser usado dentro de todos os outros scripts de shell. Ele serve para estilizar de uma maneira fácil os textos dentro dos códigos, deixando-os limpos e legíveis. Também é útil para criar menus rapidamente e de diferentes maneiras. Para utilizá-lo, importe o default.sh no início do código em seu script de shell:
 
 ```bash
 source "default.sh"
 ```
 
-**_ESTILIZAÇÃO DE TEXO_**
+**Exemplos e features:**
 
-Sem o default.sh:
+**🔸 ESTILIZAÇÃO DE TEXO**
 
 ```bash
-echo -ne "\e[1m\e[97m SCRIPT NAME \e[2m\e[37m\e[7m teste.sh \e[49m"
-
-echo -e "\e[34m I'm blue,\e[33m I'm yellow,\e[32m I'm green."
-
-echo -e "\e[107m\e[1m\e[31m Bold Red Text on White Background "
+# SEM O DEFAULT.SH
+echo -ne "\e[1m\e[97m SCRIPT NAME \e[2m\e[37m\e[7m teste.sh \e[0m"
+echo -e "\e[34m I'm blue,\e[31m I'm red,\e[32m I'm green."
+echo -e "\e[42m\e[1m\e[97m Bold White Text on Green Background "
 ```
 
-Com o default.sh:
-
 ```bash
+# COM O DEFAULT.SH
 title "SCRIPT NAME"
-
-echo -e "$blue I'm blue,$yellow I'm yellow,$green I'm green."
-
-echo -e "$bg_white$bold$red Bold Red Text on White Background "
+echo -e "$blue I'm blue,$red I'm red,$green I'm green."
+echo -e "$bg_green$bold$white Bold White Text on Green Background "
 ```
+
+_Ambos os exemplos imprimem exatamente o mesmo resultado._
 
 ![default.sh_text_image](screenshots/screenshot-text.png)
 
-Ambos os exemplos imprimem exatamente o mesmo resultado.
+**🔸 CRIAÇÃO DE MENUS**
 
-NOTA: _Consulte outras opções de cores e estilos dentro do default.sh._
-
-**_CRIAÇÃO DE MENUS_**
-
-Com default.sh também podemos criar menus a partir de funções com os comandos **_fmenu_** e **_fmenu2_**, ou a partir de listas com os comandos **_lmenu_** e **_lmenu2_**. Veja os exemplos abaixo:
-
-MENU DE FUNÇÕES
-
-fmenu - Crie menus a partir de funções. Para fazer isso, basta criar funções que terminem com "/menu":
+MENU DE FUNÇÕES (fmenu) - Crie menus a partir de funções. Para fazer isso, basta criar funções que terminem com "/menu":
 
 ```bash
 Um_item_do_menu/menu() {
@@ -195,18 +73,15 @@ Mais_um_item/menu() {
 fmenu
 ```
 
-Resultado:
-
 ```txt
+# Resultado:
  1. Um item do menu
  2. Mais um item
 
  Nº
 ```
 
-MENU DE LISTAS
-
-lmenu - Crie menus a partir de listas, arrays, arquivos... Para fazer isso basta definir o parâmetro da lista e a ação:
+MENU DE LISTAS (lmenu) - Crie menus a partir de listas, arrays, arquivos... Para fazer isso basta definir o parâmetro da lista e a ação:
 
 ```bash
 action() {                                  # função para as ações
@@ -215,11 +90,8 @@ action() {                                  # função para as ações
 lmenu "$(ls /sys/class/net)"                # a lista
 ```
 
-Resultado:
-
 ```txt
-Neste exemplo as tuas interfaces de rede são listadas como menu:
-
+Resultado: Neste exemplo as tuas interfaces de rede são listadas como menu.
  1. enp0s25
  2. lo
  3. virbr0
@@ -230,9 +102,7 @@ Neste exemplo as tuas interfaces de rede são listadas como menu:
  Nº
 ```
 
-MENUS DE LISTA E FUNÇÕES **2**
-
-**fmenu2** e **lmenu2** fazem as mesmas coisas que os anteriores, porém ambos tem suporte ao teclado.
+MENUS DE LISTA E FUNÇÕES **2** (fmenu2 e lmenu2) - fazem as mesmas coisas que os anteriores, porém ambos tem suporte à teclado.
 
 ```text
 ⇩ seta para baixo:                próximo item
@@ -243,15 +113,17 @@ MENUS DE LISTA E FUNÇÕES **2**
 
 ![default.sh_menu_image](screenshots/screenshot-menu.gif)
 
+---
+
 </details>
 
 <details>
 
 <summary>🗗 update_arch.sh</summary>
 
-## _ARQUIVO: update_arch.sh_
+## _🙼 update_arch.sh_
 
-Esse script é uma ótima maneira de atualizar o Arch Linux sem que haja erros durante o processo.
+Trata-se de um script para atualizar o Arch Linux facilmente.
 
 ![updating_image](screenshots/screenshot-updating.gif)
 
@@ -265,17 +137,38 @@ Ao executarmos o script, o mesmo segue a seguinte sequência:
 
 - Mostra as últimas notícias de atualização do Arch com o 'newsboat';
 - Atualiza o antivírus - as assinaturas não oficiais do ClamAV;
-- Limpa o cache do Yay e Pacman;
+- Limpa o cache do Paru e Pacman;
 - Atualiza a mirrorlist com o 'reflector';
 - Atualiza as chaves do repositório;
 - Atualiza o repositório oficial do Arch;
 - Atualiza o Flatpak;
 - Atualiza o Snap;
 - Atualiza o Arch User Repository (AUR);
-- Atualiza o pkgfile data;
+- Remove pacotes desnecessários (órfãos);
 - E, finalmente, pergunta se tu desejas reiniciar o sistema.
 
-Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; Yay; reflector; Flatpak; Snap; pkgfile.
+Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV; paru; reflector; flatpak; snap; trash.
+
+---
+
+</details>
+
+<details>
+
+<summary>🗗 docker.sh</summary>
+
+## _🙼 docker.sh_
+
+Este é um script para visualizar, iniciar e parar containers do Docker.
+
+```bash
+# Uso:
+./docker.sh
+```
+
+![docker_image](screenshots/screenshot-docker.gif)
+
+---
 
 </details>
 
@@ -283,20 +176,91 @@ Dependências: newsboat; ClamAV; script das assinaturas não oficiais do ClamAV;
 
 <summary>🗗 google_calendar.sh</summary>
 
-## _ARQUIVO: google_calendar.sh_
+## _🙼 google_calendar.sh_
 
-Esse pequeno script captura os dados da minha agenda da Google via 'gcalcli'.
-
-Uso-o para imprimir, com um resultado simples e discreto, meus compromissos no canto da área de trabalho. Faço isso com a ajuda do 'Conky', o qual consegue mostar as informações geradas por qualquer script no desktop.
+Esse pequeno script captura os dados do 'Google Calendar', através do 'gcalcli', e os organiza. Uso esse script junto com o 'Conky' para mostrar a agenda, de forma simples e discreta, no canto da área de trabalho (desktop).
 
 ![gcalendar_image](screenshots/screenshot-calendar.png)
 
-Uso:
-
 ```bash
+# Uso:
 ./google_calendar.sh
 ```
 
-Para usar esse script, é necessário instalar e configurar o gcalcli (ativar a API do Google).
+É necessário instalar e configurar o gcalcli.
+
+---
+
+</details>
+
+> Abaixo, scripts não mais utilizados (abandonados). **CLIQUE PARA EXPANDIR**
+
+<details>
+
+<summary>🗗 news_page.sh</summary>
+
+## _🙼 news_page.sh_
+
+Esse script extrai notícias de vários sites e cria um documento html leve e prático.
+
+O script também mostra posts do Twitter, feeds do GitHub, feeds do YouTube, cotação de moedas, dados metereológicos e saídas de comandos no bash.
+
+![news_page_image](screenshots/screenshot-news-dark.gif)
+
+USO:
+
+Insira teus links (feed rss) de notícias favoritos no arquivo de configuração "**news_settings➜default.sh**" e rode o script. Tu podes rodar o script sem parâmetros, ou especificar um arquivo de configuração personalizado, assim como nos exemplos abaixo:
+
+```bash
+# Exemplo sem parâmetros:
+./news_page.sh
+
+# Exemplo indicando um arquivo de configuração:
+./news_page.sh -s news_settings➜Rio_de_Janeiro_News.sh
+
+# news_page.html será gerado.
+```
+
+DEPENDÊNCIAS:
+
+- Para usar a função de extrair posts do Twitter é necessário instalar o [jq](https://stedolan.github.io/jq/) (Json parser).
+
+- Para usar a função de dados metereológicos é necessário instalar o [weather](http://fungi.yuggoth.org/weather/)
+
+```bash
+# Usuário do Arch (paru):
+paru -S weather
+
+# Usuário do Debian ou Ubuntu:
+sudo apt-get install weather-util
+```
+
+DICA 1:
+
+Para manter a página atualizada, você pode agendar o script para ser executado a cada 12 horas, basta editar o 'cron' com o comando:
+
+```bash
+export VISUAL=nano; crontab -e
+```
+
+e insira uma nova linha como essa (com o caminho completo ao script):
+
+```txt
+0 */12 * * * /home/nome_do_user/pasta_dos_scripts/news_page/news_page.sh -s news_settings➜Pindamonhangaba.sh
+```
+
+DICA 2:
+
+Você pode obter o feed principal do seu GitHub, para isso vá na página inicial e copie o link de onde estiver escrito "Subscribe to your news feed". E coloque no seu aquivo de configuração algo como:
+
+```text
+feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWERTYQWERTY" "8"
+```
+
+Além do feed principal tu também consegues extrair commits de projetos, como na imagem abaixo:
+
+![news_page_image](screenshots/screenshot-news-github.gif)
+
+---
 
 </details>
