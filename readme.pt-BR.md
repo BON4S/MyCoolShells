@@ -9,7 +9,7 @@ _You can also read this in another language: [English](readme.md)_
 ```bash
 # PASSO 1
 # CLONE O REPOSITÓRIO:
-git clone https://github.com/BON4S/MyCoolShells
+git clone https://github.com/imtherouser/MyCoolShells
 
 # PASSO 2
 # DÊ PERMISSÃO DE EXECUÇÃO AOS SCRIPTS:
@@ -254,7 +254,7 @@ DICA 2:
 Você pode obter o feed principal do seu GitHub, para isso vá na página inicial e copie o link de onde estiver escrito "Subscribe to your news feed". E coloque no seu aquivo de configuração algo como:
 
 ```text
-feed2 "GitHub Main Feed" "https://github.com/BON4S.private.atom?token=QWERTYQWERTYQWERTY" "8"
+feed2 "GitHub Main Feed" "https://github.com/imtherouser.private.atom?token=QWERTYQWERTYQWERTY" "8"
 ```
 
 Além do feed principal tu também consegues extrair commits de projetos, como na imagem abaixo:

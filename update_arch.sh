@@ -1,6 +1,6 @@
 #!/bin/bash
 # SCRIPT: update_arch.sh
-# AUTHOR: BON4S https://github.com/BON4S
+# AUTHOR: imtherouser https://github.com/imtherouser
 # DESCRIPTION: This script is an easy way to update Arch Linux.
 
 # For this script to work it is necessary to have 'default.sh' in the same folder.

@@ -1,6 +1,6 @@
 #!/bin/bash
 # SCRIPT: docker.sh
-# AUTHOR: BON4S https://github.com/BON4S
+# AUTHOR: imtherouser https://github.com/imtherouser
 # DESCRIPTION: Starts or stop Docker containers.
 
 # For this script to work it is necessary to have 'default.sh' in the same folder.

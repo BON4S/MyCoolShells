@@ -1,6 +1,6 @@
 #!/bin/bash
 # SCRIPT: news_page.sh
-# AUTHOR: BON4S https://github.com/BON4S
+# AUTHOR: imtherouser https://github.com/imtherouser
 #
 # DESCRIPTION:
 # This script extracts news from various websites (+ tweets, weather, currency)
@@ -23,7 +23,7 @@
 #
 # TIPS:
 # 1 - If you use Firefox, install my extension to get feed links easily:
-#     https://github.com/BON4S/KillAndMore
+#     https://github.com/imtherouser/OwlTools
 #
 # 2 - You can schedule the script to run every 12 hours by editing cron with the command:
 #     export VISUAL=nano; crontab -e

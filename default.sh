@@ -1,6 +1,6 @@
 #!/bin/bash
 # SCRIPT: default.sh
-# AUTHOR: BON4S https://github.com/BON4S
+# AUTHOR: imtherouser https://github.com/imtherouser
 # DESCRIPTION: Basic code to use in all shell scripts.
 # USAGE: source "default.sh"
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # SCRIPT: google_calendar.sh
-# AUTHOR: BON4S https://github.com/BON4S
+# AUTHOR: imtherouser https://github.com/imtherouser
 #
 # ABOUT:
 # This small script captures data from Google Calendar via
