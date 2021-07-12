@@ -1,4 +1,8 @@
-#
+> Abandoned repository
+
+# I no longer update this repository. 
+
+<br />
 
 _You can also read this in another language: [Portuguese](readme.pt-BR.md)_
 
