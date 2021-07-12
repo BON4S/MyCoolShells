@@ -1,4 +1,8 @@
-#
+> Repositório abandonado
+
+# Eu não atualizo mais esse reopsitório. 
+
+<br />
 
 _You can also read this in another language: [English](readme.md)_
 
